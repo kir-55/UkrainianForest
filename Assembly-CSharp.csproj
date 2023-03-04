@@ -69,6 +69,8 @@
     <Compile Include="Assets\Scripts\ckech.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\CameraMove.cs" />
+    <Compile Include="Assets\Scripts\CollectibleObject.cs" />
+    <Compile Include="Assets\Scripts\CollectingObjects.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -382,6 +382,8 @@
 "Assets/Scripts/Bullet.cs"
 "Assets/Scripts/CameraMove.cs"
 "Assets/Scripts/ckech.cs"
+"Assets/Scripts/CollectibleObject.cs"
+"Assets/Scripts/CollectingObjects.cs"
 "Assets/Scripts/Destroyer.cs"
 "Assets/Scripts/EnemySpawner.cs"
 "Assets/Scripts/GameControler.cs"
