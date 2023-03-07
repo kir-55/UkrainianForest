@@ -390,6 +390,8 @@
 "Assets/Scripts/Goose.cs"
 "Assets/Scripts/Gun.cs"
 "Assets/Scripts/HealthSystem.cs"
+"Assets/Scripts/Inventory.cs"
+"Assets/Scripts/InventorySlot.cs"
 "Assets/Scripts/PlayerMove.cs"
 "Assets/Scripts/Ui.cs"
 "Assets/Scripts/ZombieMove.cs"
