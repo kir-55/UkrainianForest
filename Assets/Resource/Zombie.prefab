@@ -158,6 +158,9 @@ MonoBehaviour:
   attackDamage: 10
   attackDelay: 1
   biteSound: {fileID: 8300000, guid: 361a2c020e03dac4ba44d3146b6118a5, type: 3}
+  targetsLayers:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!195 &2405830942686162068
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -192,10 +195,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecf7f42ca654734ebfa646b9c706a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 5
   healthBar: {fileID: 0}
   healthCountText: {fileID: 0}
   hpSun: 0
+  vibration: 0
+  cameraController: {fileID: 0}
   destroyOnDie: 1
 --- !u!233 &6727839889683038950
 HingeJoint2D:
@@ -241,8 +246,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.4
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -277,7 +282,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -337,8 +342,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.4
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -373,7 +378,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

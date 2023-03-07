@@ -124,6 +124,17 @@
                 },
                 {
                     "name": "",
+                    "id": "74e2b145-640c-4645-a2b2-f1f67812b9a5",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad2",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b2e2b755-a319-4d60-83b0-b29bee61c834",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
@@ -174,6 +185,11 @@
                     "isOR": false
                 }
             ]
+        },
+        {
+            "name": "Gamepad2",
+            "bindingGroup": "Gamepad2",
+            "devices": []
         }
     ]
 }

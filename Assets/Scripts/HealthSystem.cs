@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private Image healthBar;
     [SerializeField] private Text healthCountText;
     [SerializeField] private bool hpSun;
+    [SerializeField] private bool vibration;
+    [SerializeField] private CameraController cameraController;
     [SerializeField] private bool destroyOnDie = true;
     private float currentHealth;
     private bool shield;
@@ -55,10 +58,15 @@ public class HealthSystem : MonoBehaviour
         else
             currentHealth -= damage;
 
+        if(vibration)
+            StartCoroutine(SetVibration(0.2f, 0.2f));
+        if (cameraController)
+            cameraController.Shake(0.2f, 0.2f);
+
         if (currentHealth <= 0f)
         {
             if(destroyOnDie)
-            Destroy(gameObject);
+                Destroy(gameObject);
             return;
         }
 
@@ -70,6 +78,8 @@ public class HealthSystem : MonoBehaviour
 
         if (healthCountText)
             healthCountText.text = "HP: " + currentHealth.ToString();
+
+        
     }
 
     private IEnumerator SetColor(float duration, Color color)
@@ -77,6 +87,12 @@ public class HealthSystem : MonoBehaviour
         spriteRenderer.color = color;
         yield return new WaitForSeconds(duration);
         spriteRenderer.color = defaultColor;
+    }
+    private IEnumerator SetVibration(float duration, float force)
+    {
+        Gamepad.current.SetMotorSpeeds(force, force + 0.5f);
+        yield return new WaitForSeconds(duration);
+        Gamepad.current.SetMotorSpeeds(0, 0);
     }
 }
 

@@ -22,15 +22,17 @@ public class CollectingObjects : MonoBehaviour
         if (((1 << other.gameObject.layer) & collectibleLayerMask) != 0)
         {
             CollectibleObject collectible = null;
-            if (other.TryGetComponent(out collectible) && collectible.isCollectable)
+            if (other.TryGetComponent(out collectible) && collectible.IsCollectable)
             {
                 // Add the collected item to the player's inventory
-                if (playerInventory.AddItem(collectible.collectibleType.typeNumber))
+                if (playerInventory.AddItem(collectible.ItemTupe))
                 {
+                    Debug.Log("collecting");
+                    collectible.Collect();
                     audioSource.PlayOneShot(collectingSound);
                     audioSource.transform.position = playerTransform.position;
                     audioSource.transform.rotation = playerTransform.rotation;
-                    collectible.Collect();
+                    Debug.Log("collected");
                 }
                 else
                     Debug.Log("A new item cannot be added to the inventory because it is full!");

@@ -146,6 +146,17 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""74e2b145-640c-4645-a2b2-f1f67812b9a5"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad2"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b2e2b755-a319-4d60-83b0-b29bee61c834"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
@@ -196,6 +207,11 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Gamepad2"",
+            ""bindingGroup"": ""Gamepad2"",
+            ""devices"": []
         }
     ]
 }");
@@ -324,6 +340,15 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
         {
             if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
             return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
+    private int m_Gamepad2SchemeIndex = -1;
+    public InputControlScheme Gamepad2Scheme
+    {
+        get
+        {
+            if (m_Gamepad2SchemeIndex == -1) m_Gamepad2SchemeIndex = asset.FindControlSchemeIndex("Gamepad2");
+            return asset.controlSchemes[m_Gamepad2SchemeIndex];
         }
     }
     public interface IGamepadActions
