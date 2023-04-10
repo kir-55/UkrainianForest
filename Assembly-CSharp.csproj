@@ -59,6 +59,9 @@
     <Compile Include="Assets\Scripts\Box.cs" />
     <Compile Include="Assets\Scripts\Goose.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+    <Compile Include="Assets\Scripts\CurrentItem.cs" />
+    <Compile Include="Assets\Scripts\InventoryPanel.cs" />
+    <Compile Include="Assets\Scripts\ItemsInfo.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\ZombieMove.cs" />
     <Compile Include="Assets\Scripts\Ui.cs" />
@@ -73,8 +76,6 @@
     <Compile Include="Assets\Scripts\ckech.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\InventoryPanel.cs" />
-    <Compile Include="Assets\Scripts\ItemsInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

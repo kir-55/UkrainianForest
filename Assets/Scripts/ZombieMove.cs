@@ -49,7 +49,7 @@ public class ZombieMove : MonoBehaviour
         {
             if (isSecurity) 
             { 
-                Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, 10f, targetsLayers);
+                Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, 5f, targetsLayers);
                 if (targets.Length != 0)
                 {
                     agent.SetDestination(targets[0].transform.position);

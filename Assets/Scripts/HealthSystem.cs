@@ -90,9 +90,12 @@ public class HealthSystem : MonoBehaviour
     }
     private IEnumerator SetVibration(float duration, float force)
     {
-        Gamepad.current.SetMotorSpeeds(force, force + 0.5f);
-        yield return new WaitForSeconds(duration);
-        Gamepad.current.SetMotorSpeeds(0, 0);
+        if (Gamepad.current != null)
+        {
+            Gamepad.current.SetMotorSpeeds(force, force + 0.5f);
+            yield return new WaitForSeconds(duration);
+            Gamepad.current.SetMotorSpeeds(0, 0);
+        }
     }
 }
 

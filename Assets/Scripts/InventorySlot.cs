@@ -12,7 +12,8 @@ public class InventorySlot : MonoBehaviour
     public Inventory Inventory;
     public int Index;
     [SerializeField] private TMP_Text ItemAmountText;
-    [SerializeField] private Image ItemIcon; 
+    [SerializeField] private Image ItemIcon;
+    public Color NormalSlotColor;
     public InventorySlot RewriteInventorySlot(int itemType, Sprite itemIcon, int itemAmount = 1)
     {
         if(itemType != 0) 
@@ -23,7 +24,7 @@ public class InventorySlot : MonoBehaviour
             this.ItemIcon.sprite = itemIcon;
             return this;
         }
-        Debug.Log("itemType == 0");
+        //Debug.Log("itemType == 0");
         return null;
        
     }
@@ -37,6 +38,7 @@ public class InventorySlot : MonoBehaviour
             {
                 ItemType = 0;
                 ItemIcon.sprite = null;
+                transform.parent.GetComponent<Image>().color = NormalSlotColor;
             }
             return true;
         }

@@ -4,15 +4,16 @@ using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField]private Transform shotDir;
-    [SerializeField]private GameObject bullet;
-    [SerializeField]private GameObject shotSound;
+    [SerializeField] private Transform shotDir;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject shotSound;
     [SerializeField] private bool vibrations;
     [SerializeField] private CameraController cameraController;
     GameControler gameControler;
 
     private void Awake()
     {
+        cameraController = transform.parent.parent.GetComponent<CurrentItem>().GetCameraController();
         gameControler = new GameControler();
         gameControler.Gamepad.Shoot.performed += ctx => Shoot();
     }
@@ -36,9 +37,13 @@ public class Gun : MonoBehaviour
     }
     private IEnumerator SetVibration(float duration, float force)
     {
-        Gamepad.current.SetMotorSpeeds(force, force + 0.5f);
-        yield return new WaitForSeconds(duration);
-        Gamepad.current.SetMotorSpeeds(0, 0);
+        if(Gamepad.current != null)
+        {
+            Gamepad.current.SetMotorSpeeds(force, force + 0.5f);
+            yield return new WaitForSeconds(duration);
+            Gamepad.current.SetMotorSpeeds(0, 0);
+        }
+       
     }
     void OnEnable()
     {

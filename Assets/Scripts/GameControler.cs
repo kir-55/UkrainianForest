@@ -53,6 +53,42 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SwitchSlot"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cea9014-6b82-4e7b-93ca-e844ba409981"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TakeOut"",
+                    ""type"": ""Button"",
+                    ""id"": ""e82d3553-f2a3-4ab4-aeec-8b54efa0e5c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""cbfd377c-fbf6-4f1a-b6c0-93df16824809"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Put"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd8a8daf-381b-4a6c-9eee-671dc839f839"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -146,17 +182,6 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""74e2b145-640c-4645-a2b2-f1f67812b9a5"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad2"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""b2e2b755-a319-4d60-83b0-b29bee61c834"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
@@ -174,6 +199,127 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Slot"",
+                    ""id"": ""e5e24aa6-3f41-4e7a-9716-09fd63e9068c"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchSlot"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3f16629-bdbe-4f8a-b311-53a24bd44271"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""SwitchSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""173024f2-c5a3-4ebd-8e77-a6b7443e7975"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchSlot"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""f1c69249-72d6-4e3c-9c6b-068582937a97"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SwitchSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""42a77464-5868-484e-b70f-16f9119fdd03"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SwitchSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d3df1267-7f8d-4d1f-bb70-e0425f4f7ed2"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""TakeOut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c29349e-1c60-4627-b41a-18c0a3e9c2e9"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""TakeOut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e39874e8-69c2-40f7-900a-7e68a3c68793"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""924c8d33-cb12-4d75-8644-08dcc397969e"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""296e39a9-e818-4afc-ab1f-8dd76764bd6a"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Put"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07057f12-01ff-4142-bdf6-e013f6b0d8c3"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Put"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -207,11 +353,6 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                     ""isOR"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Gamepad2"",
-            ""bindingGroup"": ""Gamepad2"",
-            ""devices"": []
         }
     ]
 }");
@@ -220,6 +361,10 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
         m_Gamepad_Shoot = m_Gamepad.FindAction("Shoot", throwIfNotFound: true);
         m_Gamepad_Move = m_Gamepad.FindAction("Move", throwIfNotFound: true);
         m_Gamepad_Rotate = m_Gamepad.FindAction("Rotate", throwIfNotFound: true);
+        m_Gamepad_SwitchSlot = m_Gamepad.FindAction("SwitchSlot", throwIfNotFound: true);
+        m_Gamepad_TakeOut = m_Gamepad.FindAction("TakeOut", throwIfNotFound: true);
+        m_Gamepad_Use = m_Gamepad.FindAction("Use", throwIfNotFound: true);
+        m_Gamepad_Put = m_Gamepad.FindAction("Put", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -282,6 +427,10 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gamepad_Shoot;
     private readonly InputAction m_Gamepad_Move;
     private readonly InputAction m_Gamepad_Rotate;
+    private readonly InputAction m_Gamepad_SwitchSlot;
+    private readonly InputAction m_Gamepad_TakeOut;
+    private readonly InputAction m_Gamepad_Use;
+    private readonly InputAction m_Gamepad_Put;
     public struct GamepadActions
     {
         private @GameControler m_Wrapper;
@@ -289,6 +438,10 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Gamepad_Shoot;
         public InputAction @Move => m_Wrapper.m_Gamepad_Move;
         public InputAction @Rotate => m_Wrapper.m_Gamepad_Rotate;
+        public InputAction @SwitchSlot => m_Wrapper.m_Gamepad_SwitchSlot;
+        public InputAction @TakeOut => m_Wrapper.m_Gamepad_TakeOut;
+        public InputAction @Use => m_Wrapper.m_Gamepad_Use;
+        public InputAction @Put => m_Wrapper.m_Gamepad_Put;
         public InputActionMap Get() { return m_Wrapper.m_Gamepad; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -307,6 +460,18 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                 @Rotate.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnRotate;
                 @Rotate.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnRotate;
                 @Rotate.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnRotate;
+                @SwitchSlot.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnSwitchSlot;
+                @SwitchSlot.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnSwitchSlot;
+                @SwitchSlot.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnSwitchSlot;
+                @TakeOut.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnTakeOut;
+                @TakeOut.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnTakeOut;
+                @TakeOut.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnTakeOut;
+                @Use.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnUse;
+                @Use.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnUse;
+                @Use.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnUse;
+                @Put.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnPut;
+                @Put.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnPut;
+                @Put.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnPut;
             }
             m_Wrapper.m_GamepadActionsCallbackInterface = instance;
             if (instance != null)
@@ -320,6 +485,18 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                 @Rotate.started += instance.OnRotate;
                 @Rotate.performed += instance.OnRotate;
                 @Rotate.canceled += instance.OnRotate;
+                @SwitchSlot.started += instance.OnSwitchSlot;
+                @SwitchSlot.performed += instance.OnSwitchSlot;
+                @SwitchSlot.canceled += instance.OnSwitchSlot;
+                @TakeOut.started += instance.OnTakeOut;
+                @TakeOut.performed += instance.OnTakeOut;
+                @TakeOut.canceled += instance.OnTakeOut;
+                @Use.started += instance.OnUse;
+                @Use.performed += instance.OnUse;
+                @Use.canceled += instance.OnUse;
+                @Put.started += instance.OnPut;
+                @Put.performed += instance.OnPut;
+                @Put.canceled += instance.OnPut;
             }
         }
     }
@@ -342,19 +519,14 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_KeyboardSchemeIndex];
         }
     }
-    private int m_Gamepad2SchemeIndex = -1;
-    public InputControlScheme Gamepad2Scheme
-    {
-        get
-        {
-            if (m_Gamepad2SchemeIndex == -1) m_Gamepad2SchemeIndex = asset.FindControlSchemeIndex("Gamepad2");
-            return asset.controlSchemes[m_Gamepad2SchemeIndex];
-        }
-    }
     public interface IGamepadActions
     {
         void OnShoot(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
+        void OnSwitchSlot(InputAction.CallbackContext context);
+        void OnTakeOut(InputAction.CallbackContext context);
+        void OnUse(InputAction.CallbackContext context);
+        void OnPut(InputAction.CallbackContext context);
     }
 }
