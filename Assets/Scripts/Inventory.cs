@@ -9,10 +9,13 @@ using static ItemsInfo;
 
 public class Inventory : MonoBehaviour
 {
-    public int maxSlotsPerType = 10;
-    private int currentSlotIndex = -1;
+    public int MaxSlotsInRightHand = 10;
+    public int MaxSlotsInLeftHand = 1;
+    private int rightHandCurrentSlotIndex = -1;
+    private int leftHandCurrentSlotIndex = -1;
     [SerializeField] private ItemsInfo ItemsInfo;
-    public List<InventorySlot> slots = new List<InventorySlot>();
+    private List<InventorySlot> rightHandSlots = new List<InventorySlot>();
+    private List<InventorySlot> leftHandSlots = new List<InventorySlot>();
     [SerializeField] private InventoryPanel inventoryPanel;
     [SerializeField] private CurrentItem currentItem;
     public Color NormalSlotColor;
@@ -28,13 +31,13 @@ public class Inventory : MonoBehaviour
     }
     private bool OnTakeOut(InputValue value) 
     {
-        if(slots != null && currentSlotIndex < slots.Count && currentSlotIndex >= 0)
+        if(rightHandSlots != null && rightHandCurrentSlotIndex < rightHandSlots.Count && rightHandCurrentSlotIndex >= 0)
         {
-            int currentItemTupe = slots[currentSlotIndex].ItemType;
+            int currentItemTupe = rightHandSlots[rightHandCurrentSlotIndex].ItemType;
             //Vector3 ThrowPos = new Vector3(transform.position.x + Random.Range(-0.4f, 0.4f), transform.position.y + Random.Range(1f, 1.5f), 0);
             foreach (ItemTupeInfos currentSlot in ItemsInfo.itemTupesInfos)
             {
-                if(currentSlot.typeNumber == currentItemTupe && RemoveItem(currentItemTupe))
+                if(currentSlot.typeNumber == currentItemTupe && RemoveItem(currentItemTupe, rightHandSlots, MaxSlotsInRightHand))
                 {
                     Instantiate(ItemsInfo.itemTupesInfos[currentItemTupe - 1].prefab, dropPoint.position, transform.rotation);
                     return true;
@@ -43,131 +46,106 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }
-    public bool AddItem(int itemType, List<InventorySlot> slots1, int itemAmount = 1)
+    private void OnGetToOtherHand()
+    {
+        //to do
+    }
+    public bool AddItem(int itemType, List<InventorySlot> slots, int maxSlotsCount, int itemAmount = 1)
     {
         InventorySlot slot = null;
-        // Check if we already have the item type in the inventory
-        if (slots1.Count > 0)
-            slot = slots1.Find(s => s.ItemType == itemType);
+        if (slots.Count > 0)
+            slot = slots.Find(s => s.ItemType == itemType);
 
-        if (slot != null)// Check if we can add the item to an existing slot
+        if (slot != null && slot.Recount(1))
+            return true;                      
+        else if (slots.Count < maxSlotsCount)
         {
-            if (slot.Recount(1)) 
+            slots.Add(inventoryPanel.AddItem(itemType, itemAmount));
+            if (rightHandCurrentSlotIndex >= 0)
             {
-                //Debug.Log("changing ");
-                return true;
-            }
-            Debug.Log("F1");
-            return false;
-        }                         
-        else if (slots.Count < maxSlotsPerType)
-        {
-            //Debug.Log("adding");
-            slots1.Add(inventoryPanel.AddItem(itemType, itemAmount));
-            if(currentSlotIndex < 0)
                 ChangeSlot(true);
+                print("changed slot (67)");
+            } 
             return true;
         }
 
         return false;// Inventory is full or max slots per type reached
     }
 
-    public bool RemoveItem(int itemType)
+    public bool RemoveItem(int itemType, List<InventorySlot> slots, int maxSlotsCount, bool isRightHand = true)
     {
-        if (slots != null && currentSlotIndex < slots.Count)
+        InventorySlot slot = null;
+        if (slots.Count > 0)
+            slot = slots.Find(s => s.ItemType == itemType);
+
+        if (slot != null)
         {
-            InventorySlot slot = slots.Find(s => s.ItemType == itemType);
-            if (slot != null)
+            if(slot.GetItemAmount() > 1)
             {
-                if(slot.GetItemAmount() > 1)
+                slot.Recount(-1);
+                return true;
+            }
+            else 
+            { 
+                if(slots.Count > 1) 
                 {
-                    slot.Recount(-1);
-                    return true;
-                }
-                else 
-                { 
-                    if(slots.Count > 1) 
-                    { 
-                        if(currentSlotIndex != slot.Index) 
-                        {
-                            slot.Recount(-1);
-                            slots.Remove(slot);
-                            return true;
-                        }
-                        else 
-                        {
-                            slots[currentSlotIndex].transform.parent.GetComponent<Image>().color = NormalSlotColor;
-                            slot.Recount(-1);
-                            slots.Remove(slot);
-                            //Debug.Log("removing");
-                            if (ChangeSlot(false))
-                                return true;
-                            return false;
-                            //return false;
-                        }
-                        //else
-                        //{
-                        //    Debug.Log("F2???");
-                        //    return false;
-                        //}
-                    }
-                    else
+                    if ((isRightHand ? rightHandCurrentSlotIndex: -1) != slot.Index) 
                     {
-                        slots[currentSlotIndex].transform.parent.GetComponent<Image>().color = NormalSlotColor;
-                        currentSlotIndex = -1;
-                        currentItem.SetCurrentItem(-1);
                         slot.Recount(-1);
                         slots.Remove(slot);
-                        //Debug.Log("T1???");
                         return true;
-                    } 
+                    }
+                    else 
+                    {
+                        slots[isRightHand ? rightHandCurrentSlotIndex : leftHandCurrentSlotIndex].transform.parent.GetComponent<Image>().color = NormalSlotColor;
+                        slot.Recount(-1);
+                        slots.Remove(slot);
+                        if (ChangeSlot(false))
+                            return true;
+                        return false;
+                    }
                 }
+                else
+                {
+                    slots[rightHandCurrentSlotIndex].transform.parent.GetComponent<Image>().color = NormalSlotColor;
+                    rightHandCurrentSlotIndex = -1;
+                    currentItem.SetCurrentItem(-1);
+                    slot.Recount(-1);
+                    slots.Remove(slot);
+                    return true;
+                } 
             }
-            //Debug.Log("F3???");
-            return false;
         }
-        //Debug.Log("F4???");
         return false;
 
     }
 
-    public int GetItemCount(int itemType)
+    public int GetItemAmount(int itemType, bool isRightHand = true)
     {
+        List<InventorySlot> slots = (isRightHand ? rightHandSlots : leftHandSlots);
         InventorySlot slot = slots.Find(s => s.ItemType == itemType);
         return slot != null ? slot.GetItemAmount() : 0;
     }
-    private bool ChangeSlot(bool direction) 
+    private bool ChangeSlot(bool direction, bool isRightHand = true) 
     {
-        
-        if (slots != null && slots.Count > 0 && !(direction && currentSlotIndex + 1 >= slots.Count))//((direction && currentSlotIndex < slots.Count - 1) || (!direction && currentSlotIndex > 0))
+        int currentSlotIndex = (isRightHand ? rightHandCurrentSlotIndex : leftHandCurrentSlotIndex);
+        List<InventorySlot> staticSlots = (isRightHand ? rightHandSlots : leftHandSlots);
+        if (staticSlots != null && staticSlots.Count > 0 && !(direction && currentSlotIndex + 1 >= staticSlots.Count))
         {
-
-            //Debug.Log("slots.Count " + slots.Count);
-
-
-            currentSlotIndex = direction ? currentSlotIndex + 1 : currentSlotIndex - 1;
-            if (currentSlotIndex >= 0)
-            {
-                print("color of slot: " + currentSlotIndex + "has been chenged to yellow");
-                currentItem.SetCurrentItem(slots[currentSlotIndex].ItemType);
-                Debug.Log("current slot index: " + currentSlotIndex);
-                
-            }
-            else
-            {
-                currentSlotIndex = 0;
-                print("color of slot: " + currentSlotIndex + "has been chenged to yellow");
-                currentItem.SetCurrentItem(slots[currentSlotIndex].ItemType);
-                Debug.Log("slot has been automaticly changed to 0");
-            }
+            int newCurrentSlotIndex = direction ? currentSlotIndex + 1 : currentSlotIndex - 1;
+            if (newCurrentSlotIndex < 0)
+                newCurrentSlotIndex = 0;
+            if (isRightHand)
+                currentItem.SetCurrentItem(staticSlots[newCurrentSlotIndex].ItemType);
             RewriteInventory();
-            slots[currentSlotIndex].transform.parent.GetComponent<Image>().color = Color.yellow;
+            (isRightHand ? rightHandSlots : leftHandSlots)[newCurrentSlotIndex].transform.parent.GetComponent<Image>().color = Color.yellow;
             return true;
         }
         return false;
     }
-    private void RewriteInventory()
+    private void RewriteInventory(bool isRightHand = true)
     {
+        List<InventorySlot> slots = (isRightHand ? rightHandSlots : leftHandSlots);
         int maxI = slots.Count - 1;
         List <InventorySlot> slots1 = new List<InventorySlot>();
         for (int i = 0; i <= maxI; i++)
@@ -175,21 +153,25 @@ public class Inventory : MonoBehaviour
             InventorySlot slot = slots[i];           
             int itemTupe = slot.ItemType;
             int itemAmount = slot.GetItemAmount();
-            //slots1.Remove(slot);
             slot.Recount(-itemAmount);
-            //Debug.Log("item tupe:" + itemTupe);
-            AddItem(itemTupe, slots1, itemAmount);
-            //Debug.Log("changed position of itemTupe: " + itemTupe + " from slot index: " + slot.Index + " slots1 count: " + slots1.Count + " slots count" + slots1.Count + " [162]");
-       
-            //Debug.Log("slot index: " + slot.Index + " i: " + i + " slots1 count: " + slots1.Count);
-            
+            AddItem(itemTupe, slots1, (isRightHand ? MaxSlotsInRightHand : MaxSlotsInLeftHand), itemAmount);
         }
         if (slots1.Count > 0)
         {
             slots.Clear();
             slots = slots1;
+            if (isRightHand)
+            {
+                rightHandSlots.Clear();
+                rightHandSlots = slots;
+            }        
+            else
+            {
+                leftHandSlots.Clear();
+                leftHandSlots = slots;
+            }
         }
-            
+        print("rewrited  inventory (166)");
     }
-    public List<InventorySlot> GetSlots() => slots;
+    public List<InventorySlot> GetSlots(bool isRightHand = true) => (isRightHand ? rightHandSlots : leftHandSlots);
 }

@@ -27,7 +27,7 @@ public class CurrentItem : MonoBehaviour
             Debug.Log("puting");
     }
 
-    public void SetCurrentItem(int itemTupe)
+    public void SetCurrentItem(int itemTupe, bool isRightHand = true)
     {
         if(itemTupe > 0) 
         {
@@ -45,7 +45,7 @@ public class CurrentItem : MonoBehaviour
             itemInfos = itemsInfo.itemTupesInfos[itemTupe-1];
             if(itemInfos.iconInHand)
                 spriteRenderer.sprite = itemInfos.iconInHand;
-            else if(itemInfos.icon)
+            else if(itemInfos.icon && !itemInfos.canBeUsed)
                 spriteRenderer.sprite = itemInfos.icon;
             if(itemInfos.canBeUsed)
             {

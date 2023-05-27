@@ -89,6 +89,15 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GetToOtherHand"",
+                    ""type"": ""Button"",
+                    ""id"": ""2a4cea37-94d0-404d-9f5a-84edf67d28d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -322,6 +331,28 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                     ""action"": ""Put"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f8cc187-ec58-4af1-a123-42e5409739ef"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""GetToOtherHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60e3558b-e0f1-4556-b6d6-6cdaf5291df8"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GetToOtherHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -365,6 +396,7 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
         m_Gamepad_TakeOut = m_Gamepad.FindAction("TakeOut", throwIfNotFound: true);
         m_Gamepad_Use = m_Gamepad.FindAction("Use", throwIfNotFound: true);
         m_Gamepad_Put = m_Gamepad.FindAction("Put", throwIfNotFound: true);
+        m_Gamepad_GetToOtherHand = m_Gamepad.FindAction("GetToOtherHand", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -431,6 +463,7 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gamepad_TakeOut;
     private readonly InputAction m_Gamepad_Use;
     private readonly InputAction m_Gamepad_Put;
+    private readonly InputAction m_Gamepad_GetToOtherHand;
     public struct GamepadActions
     {
         private @GameControler m_Wrapper;
@@ -442,6 +475,7 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
         public InputAction @TakeOut => m_Wrapper.m_Gamepad_TakeOut;
         public InputAction @Use => m_Wrapper.m_Gamepad_Use;
         public InputAction @Put => m_Wrapper.m_Gamepad_Put;
+        public InputAction @GetToOtherHand => m_Wrapper.m_Gamepad_GetToOtherHand;
         public InputActionMap Get() { return m_Wrapper.m_Gamepad; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -472,6 +506,9 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                 @Put.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnPut;
                 @Put.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnPut;
                 @Put.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnPut;
+                @GetToOtherHand.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnGetToOtherHand;
+                @GetToOtherHand.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnGetToOtherHand;
+                @GetToOtherHand.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnGetToOtherHand;
             }
             m_Wrapper.m_GamepadActionsCallbackInterface = instance;
             if (instance != null)
@@ -497,6 +534,9 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                 @Put.started += instance.OnPut;
                 @Put.performed += instance.OnPut;
                 @Put.canceled += instance.OnPut;
+                @GetToOtherHand.started += instance.OnGetToOtherHand;
+                @GetToOtherHand.performed += instance.OnGetToOtherHand;
+                @GetToOtherHand.canceled += instance.OnGetToOtherHand;
             }
         }
     }
@@ -528,5 +568,6 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
         void OnTakeOut(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
         void OnPut(InputAction.CallbackContext context);
+        void OnGetToOtherHand(InputAction.CallbackContext context);
     }
 }

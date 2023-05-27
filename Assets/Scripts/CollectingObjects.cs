@@ -24,23 +24,15 @@ public class CollectingObjects : MonoBehaviour
             CollectibleObject collectible = null;
             if (other.TryGetComponent(out collectible) && collectible.IsCollectable)
             {
-                // Add the collected item to the player's inventory
-                if (playerInventory.AddItem(collectible.ItemTupe, playerInventory.GetSlots()))
+                if (playerInventory.AddItem(collectible.ItemTupe, playerInventory.GetSlots(),playerInventory.MaxSlotsInRightHand))
                 {
-                    //Debug.Log("collecting");
                     collectible.Collect();
                     audioSource.PlayOneShot(collectingSound);
                     audioSource.transform.position = playerTransform.position;
                     audioSource.transform.rotation = playerTransform.rotation;
-                    //Debug.Log("collected");
                 }
-                
-                    //Debug.Log("A new item cannot be added to the inventory because it is full!");
             }
-            
-                //Debug.Log("EEEEEERRROOREEE");
         }
-        
-            //Debug.Log("other.gameObject.layer: "+ other.gameObject.layer + " collectibleLayerMask: " + collectibleLayerMask.value);
+        print("collecting (36)");
     }
 }
