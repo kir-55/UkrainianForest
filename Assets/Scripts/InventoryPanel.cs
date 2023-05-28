@@ -9,14 +9,15 @@ public class InventoryPanel : MonoBehaviour
     public Inventory inventory;
     public ItemsInfo itemsInfo;
     private Color normalSlotColor;
-    public InventorySlot AddItem(int itemTupe, int itemAmount = 1, bool rightHand = true)
+    public InventorySlot AddItem(int itemTupe, int itemAmount = 1, bool isRightHand = true)
     {
-        for (int i = 0; i < (rightHand? inventory.MaxSlotsInRightHand : inventory.MaxSlotsInLeftHand); i++)
+        for (int i = 0; i < (isRightHand? inventory.MaxSlotsInRightHand : inventory.MaxSlotsInLeftHand); i++)
         {
-            InventorySlot physicSlot = (rightHand? RightHand: LeftHand).transform.GetChild(i).GetChild(1).GetComponent<InventorySlot>();
+            InventorySlot physicSlot = (isRightHand? RightHand: LeftHand).transform.GetChild(i).GetChild(1).GetComponent<InventorySlot>();
             if (physicSlot.ItemType == 0)
             {
                 Sprite itemIcon = itemsInfo.itemTupesInfos[itemTupe - 1].icon;
+                print("adding: " + physicSlot.transform.parent.parent.name + " hand: " + isRightHand);
                 physicSlot = physicSlot.RewriteInventorySlot(itemTupe, itemIcon, itemAmount);
                 return physicSlot;
             }

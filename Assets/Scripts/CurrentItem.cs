@@ -8,19 +8,16 @@ public class CurrentItem : MonoBehaviour
     [SerializeField] private ItemsInfo itemsInfo;
     ItemsInfo.ItemTupeInfos itemInfos;
     [SerializeField] private CameraController cameraController;
-    private SpriteRenderer spriteRenderer;
-    GameControler gameControler;
+    [SerializeField] private SpriteRenderer leftHandSpriteRenderer;
+    [SerializeField] private SpriteRenderer rightHandSpriteRenderer;
+    [SerializeField] private GameObject leftHandGunPoint, rightHandGunPoint;    
+    private GameControler gameControler;
 
     private void Awake()
     {
         gameControler = new GameControler();
         gameControler.Gamepad.Put.performed += ctx => Put();
     }
-    private void Start()
-    {    
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
     private void Put()
     {
         if(itemInfos != null && itemInfos.isBlock)
@@ -29,42 +26,30 @@ public class CurrentItem : MonoBehaviour
 
     public void SetCurrentItem(int itemTupe, bool isRightHand = true)
     {
-        if(itemTupe > 0) 
-        {
-            try
-            {
-                Destroy(transform.GetChild(0).GetChild(0).gameObject);
-            }
-            catch
-            {
+        SpriteRenderer spriteRenderer = (isRightHand ? rightHandSpriteRenderer : leftHandSpriteRenderer); 
+        GameObject gunPoint = (isRightHand ? rightHandGunPoint : leftHandGunPoint);
 
-            }
-            
-            
-            spriteRenderer.color = new Color(1, 1, 1, 1);
+        if (gunPoint.transform.childCount > 0) 
+            Destroy(gunPoint.transform.GetChild(0).gameObject);
+
+        if (itemTupe > 0) 
+        {
             itemInfos = itemsInfo.itemTupesInfos[itemTupe-1];
-            if(itemInfos.iconInHand)
-                spriteRenderer.sprite = itemInfos.iconInHand;
-            else if(itemInfos.icon && !itemInfos.canBeUsed)
-                spriteRenderer.sprite = itemInfos.icon;
-            if(itemInfos.canBeUsed)
+            if(itemInfos.iconInHand || (itemInfos.icon && !itemInfos.canBeUsed))
             {
-                if(itemInfos.prefabInHand)
-                    Instantiate(itemInfos.prefabInHand, transform.GetChild(0).position, transform.GetChild(0).rotation, transform.GetChild(0)); 
+                if(itemInfos.iconInHand)
+                    spriteRenderer.sprite = itemInfos.iconInHand;
+                else
+                    spriteRenderer.sprite = itemInfos.icon;
+                spriteRenderer.color = new Color(1, 1, 1, 1);
             }
+            if(itemInfos.canBeUsed && itemInfos.prefabInHand)
+                Instantiate(itemInfos.prefabInHand, gunPoint.transform.position, gunPoint.transform.rotation, gunPoint.transform); 
+
         }
         else 
-        {
             spriteRenderer.color = new Color(1, 1, 1, 0);
-            try
-            {
-                Destroy(transform.GetChild(0).GetChild(0).gameObject);
-            }
-            catch
-            {
 
-            }
-        }
     }
     public CameraController GetCameraController() => cameraController;
     void OnEnable()
