@@ -72,7 +72,7 @@ public class Inventory : MonoBehaviour
         else if(leftHandItemAmount > 0)
         {
             AddItem(leftHandItemTupe, rightHandSlots, MaxSlotsInRightHand, leftHandItemAmount);
-            RemoveItem(leftHandItemTupe, leftHandSlots, false);
+            RemoveItem(leftHandItemTupe, leftHandSlots, false, leftHandItemAmount);
         }
     
         if (leftHandCurrentSlotIndex > -1 && leftHandSlots.Count > leftHandCurrentSlotIndex && leftHandSlots[leftHandCurrentSlotIndex] && rightHandItemAmount > 0)
@@ -83,7 +83,7 @@ public class Inventory : MonoBehaviour
         else if(rightHandItemAmount > 0) 
         {
             AddItem(rightHandItemTupe, leftHandSlots, MaxSlotsInLeftHand, rightHandItemAmount, false);
-            RemoveItem(rightHandItemTupe, rightHandSlots);
+            RemoveItem(rightHandItemTupe, rightHandSlots, true, rightHandItemAmount);
             print("lhcsi: " + leftHandCurrentSlotIndex);
             if(leftHandSlots.Count > leftHandCurrentSlotIndex)
                 currentItem.SetCurrentItem(leftHandSlots[leftHandCurrentSlotIndex].ItemType, false);
@@ -116,7 +116,7 @@ public class Inventory : MonoBehaviour
         return false;// Inventory is full or max slots per type reached
     }
 
-    public bool RemoveItem(int itemType, List<InventorySlot> slots, bool isRightHand = true)
+    public bool RemoveItem(int itemType, List<InventorySlot> slots, bool isRightHand = true, int itemAmount = 1)
     {
         InventorySlot slot = null;
         if (slots.Count > 0)
@@ -124,9 +124,9 @@ public class Inventory : MonoBehaviour
 
         if (slot != null)
         {
-            if(slot.GetItemAmount() > 1)
+            if(slot.GetItemAmount() > itemAmount)
             {
-                slot.Recount(-1);
+                slot.Recount(-itemAmount);
                 return true;
             }
             else 
@@ -135,14 +135,14 @@ public class Inventory : MonoBehaviour
                 {
                     if ((isRightHand ? rightHandCurrentSlotIndex: leftHandCurrentSlotIndex) != slot.Index) 
                     {
-                        slot.Recount(-1);
+                        slot.Recount(-slot.GetItemAmount());
                         slots.Remove(slot);
                         return true;
                     }
                     else 
                     {
                         slots[isRightHand ? rightHandCurrentSlotIndex : leftHandCurrentSlotIndex].transform.parent.GetComponent<Image>().color = NormalSlotColor;
-                        slot.Recount(-1);
+                        slot.Recount(-slot.GetItemAmount());
                         slots.Remove(slot);
                         if (ChangeSlot(false))
                             return true;
@@ -160,7 +160,7 @@ public class Inventory : MonoBehaviour
                     else
                         leftHandCurrentSlotIndex = -1;
                     currentItem.SetCurrentItem(-1, isRightHand);
-                    slot.Recount(-1);
+                    slot.Recount(-slot.GetItemAmount());
                     slots.Remove(slot);
                     return true;
                 } 

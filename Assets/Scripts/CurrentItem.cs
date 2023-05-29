@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class CurrentItem : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class CurrentItem : MonoBehaviour
     [SerializeField] private CameraController cameraController;
     [SerializeField] private SpriteRenderer leftHandSpriteRenderer;
     [SerializeField] private SpriteRenderer rightHandSpriteRenderer;
-    [SerializeField] private GameObject leftHandGunPoint, rightHandGunPoint;    
+    [SerializeField] private GameObject leftHandGunPoint, rightHandGunPoint, dropPoint;
+    [SerializeField] private Tilemap blockTileMap, tileMap;
     private GameControler gameControler;
 
     private void Awake()
@@ -20,8 +22,10 @@ public class CurrentItem : MonoBehaviour
     }
     private void Put()
     {
-        if(itemInfos != null && itemInfos.isBlock)
-            Debug.Log("puting");
+        Vector3Int tilePosition = (itemInfos.isBlock ? blockTileMap : tileMap).WorldToCell(dropPoint.transform.position);
+
+        if (itemInfos != null && itemInfos.tile)
+            (itemInfos.isBlock ? blockTileMap : tileMap).SetTile(tilePosition, itemInfos.tile);
     }
 
     public void SetCurrentItem(int itemTupe, bool isRightHand = true)
@@ -43,7 +47,9 @@ public class CurrentItem : MonoBehaviour
                     spriteRenderer.sprite = itemInfos.icon;
                 spriteRenderer.color = new Color(1, 1, 1, 1);
             }
-            if(itemInfos.canBeUsed && itemInfos.prefabInHand)
+            else
+                spriteRenderer.color = new Color(1, 1, 1, 0);
+            if (itemInfos.canBeUsed && itemInfos.prefabInHand)
                 Instantiate(itemInfos.prefabInHand, gunPoint.transform.position, gunPoint.transform.rotation, gunPoint.transform); 
 
         }
