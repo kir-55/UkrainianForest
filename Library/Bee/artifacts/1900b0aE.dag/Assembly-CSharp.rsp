@@ -381,7 +381,6 @@
 "Assets/Scripts/Box.cs"
 "Assets/Scripts/Bullet.cs"
 "Assets/Scripts/CameraController.cs"
-"Assets/Scripts/ckech.cs"
 "Assets/Scripts/CollectibleObject.cs"
 "Assets/Scripts/CollectingObjects.cs"
 "Assets/Scripts/CurrentItem.cs"

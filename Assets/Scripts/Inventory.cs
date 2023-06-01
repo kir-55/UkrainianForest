@@ -101,11 +101,10 @@ public class Inventory : MonoBehaviour
         if (slots.Count > 0)
             slot = slots.Find(s => s.ItemType == itemType);
 
-        if (slot != null && slot.Recount(1))
+        if (slot != null && slot.Recount(itemAmount))
             return true;                      
         else if (slots.Count < maxSlotsCount)
         {
-            print("eee: " + isRightHand);
             slots.Add(inventoryPanel.AddItem(itemType, itemAmount, isRightHand));
             if((isRightHand? rightHandCurrentSlotIndex:leftHandCurrentSlotIndex) < 0)
                 ChangeSlot(true, isRightHand);
@@ -113,7 +112,7 @@ public class Inventory : MonoBehaviour
             return true;
         }
 
-        return false;// Inventory is full or max slots per type reached
+        return false;
     }
 
     public bool RemoveItem(int itemType, List<InventorySlot> slots, bool isRightHand = true, int itemAmount = 1)

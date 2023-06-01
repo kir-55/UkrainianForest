@@ -24,7 +24,7 @@ public class CollectingObjects : MonoBehaviour
             CollectibleObject collectible = null;
             if (other.TryGetComponent(out collectible) && collectible.IsCollectable)
             {
-                if (playerInventory.AddItem(collectible.ItemTupe, playerInventory.GetSlots(),playerInventory.MaxSlotsInRightHand))
+                if (playerInventory.AddItem(collectible.ItemTupe, playerInventory.GetSlots(),playerInventory.MaxSlotsInRightHand, collectible.itemAmount))
                 {
                     collectible.Collect();
                     audioSource.PlayOneShot(collectingSound);

@@ -15,7 +15,7 @@ public class Gun : MonoBehaviour
     {
         cameraController = transform.parent.parent.GetComponent<CurrentItem>().GetCameraController();
         gameControler = new GameControler();
-        gameControler.Gamepad.Shoot.performed += ctx => Shoot();
+        gameControler.Gamepad.Use.performed += ctx => Shoot();
     }
 
     private void Update()

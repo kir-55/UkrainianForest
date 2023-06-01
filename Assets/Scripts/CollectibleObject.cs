@@ -7,6 +7,7 @@ public class CollectibleObject : MonoBehaviour
     // Define a class to hold information about each collectible type
     public bool IsCollectable = true;
     public int ItemTupe;
+    public int itemAmount = 1;
 
     // Method to collect the object and apply its effect
     public void Collect()

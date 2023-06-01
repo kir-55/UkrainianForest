@@ -28,15 +28,6 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
             ""id"": ""7a87ca63-7ccf-4af3-8e34-9119ac602e5c"",
             ""actions"": [
                 {
-                    ""name"": ""Shoot"",
-                    ""type"": ""Button"",
-                    ""id"": ""21fd1ab1-d202-47a0-bb9c-8cea1fdfedc2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""cf716b4e-59bf-411a-ac00-5fb7e5195dba"",
@@ -98,31 +89,18 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BreakDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""70604b45-29a8-47c8-b708-8f4719e74919"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""d95958b8-a49c-470f-80e5-3140c2df9b2e"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d1028b4f-ac02-4955-a180-de1ce620cf16"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""cd3f9e4f-11b7-4b7a-8019-1ece0acc0e68"",
@@ -292,7 +270,7 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""e39874e8-69c2-40f7-900a-7e68a3c68793"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Use"",
@@ -302,8 +280,8 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""924c8d33-cb12-4d75-8644-08dcc397969e"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Use"",
@@ -313,8 +291,8 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""296e39a9-e818-4afc-ab1f-8dd76764bd6a"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": ""Hold(duration=0.3)"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Put"",
@@ -324,7 +302,7 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""07057f12-01ff-4142-bdf6-e013f6b0d8c3"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -351,6 +329,28 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""GetToOtherHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f2c8237-aa37-43c4-9032-aa8f495bc350"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Hold(duration=0.3)"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""BreakDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b870304a-de6f-4950-84ea-efb344a26dd3"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold(duration=0.3)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""BreakDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -389,7 +389,6 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
 }");
         // Gamepad
         m_Gamepad = asset.FindActionMap("Gamepad", throwIfNotFound: true);
-        m_Gamepad_Shoot = m_Gamepad.FindAction("Shoot", throwIfNotFound: true);
         m_Gamepad_Move = m_Gamepad.FindAction("Move", throwIfNotFound: true);
         m_Gamepad_Rotate = m_Gamepad.FindAction("Rotate", throwIfNotFound: true);
         m_Gamepad_SwitchSlot = m_Gamepad.FindAction("SwitchSlot", throwIfNotFound: true);
@@ -397,6 +396,7 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
         m_Gamepad_Use = m_Gamepad.FindAction("Use", throwIfNotFound: true);
         m_Gamepad_Put = m_Gamepad.FindAction("Put", throwIfNotFound: true);
         m_Gamepad_GetToOtherHand = m_Gamepad.FindAction("GetToOtherHand", throwIfNotFound: true);
+        m_Gamepad_BreakDown = m_Gamepad.FindAction("BreakDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -456,7 +456,6 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
     // Gamepad
     private readonly InputActionMap m_Gamepad;
     private IGamepadActions m_GamepadActionsCallbackInterface;
-    private readonly InputAction m_Gamepad_Shoot;
     private readonly InputAction m_Gamepad_Move;
     private readonly InputAction m_Gamepad_Rotate;
     private readonly InputAction m_Gamepad_SwitchSlot;
@@ -464,11 +463,11 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gamepad_Use;
     private readonly InputAction m_Gamepad_Put;
     private readonly InputAction m_Gamepad_GetToOtherHand;
+    private readonly InputAction m_Gamepad_BreakDown;
     public struct GamepadActions
     {
         private @GameControler m_Wrapper;
         public GamepadActions(@GameControler wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Shoot => m_Wrapper.m_Gamepad_Shoot;
         public InputAction @Move => m_Wrapper.m_Gamepad_Move;
         public InputAction @Rotate => m_Wrapper.m_Gamepad_Rotate;
         public InputAction @SwitchSlot => m_Wrapper.m_Gamepad_SwitchSlot;
@@ -476,6 +475,7 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
         public InputAction @Use => m_Wrapper.m_Gamepad_Use;
         public InputAction @Put => m_Wrapper.m_Gamepad_Put;
         public InputAction @GetToOtherHand => m_Wrapper.m_Gamepad_GetToOtherHand;
+        public InputAction @BreakDown => m_Wrapper.m_Gamepad_BreakDown;
         public InputActionMap Get() { return m_Wrapper.m_Gamepad; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -485,9 +485,6 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_GamepadActionsCallbackInterface != null)
             {
-                @Shoot.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnShoot;
                 @Move.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnMove;
@@ -509,13 +506,13 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                 @GetToOtherHand.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnGetToOtherHand;
                 @GetToOtherHand.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnGetToOtherHand;
                 @GetToOtherHand.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnGetToOtherHand;
+                @BreakDown.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnBreakDown;
+                @BreakDown.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnBreakDown;
+                @BreakDown.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnBreakDown;
             }
             m_Wrapper.m_GamepadActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Shoot.started += instance.OnShoot;
-                @Shoot.performed += instance.OnShoot;
-                @Shoot.canceled += instance.OnShoot;
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
@@ -537,6 +534,9 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
                 @GetToOtherHand.started += instance.OnGetToOtherHand;
                 @GetToOtherHand.performed += instance.OnGetToOtherHand;
                 @GetToOtherHand.canceled += instance.OnGetToOtherHand;
+                @BreakDown.started += instance.OnBreakDown;
+                @BreakDown.performed += instance.OnBreakDown;
+                @BreakDown.canceled += instance.OnBreakDown;
             }
         }
     }
@@ -561,7 +561,6 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
     }
     public interface IGamepadActions
     {
-        void OnShoot(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
         void OnSwitchSlot(InputAction.CallbackContext context);
@@ -569,5 +568,6 @@ public partial class @GameControler : IInputActionCollection2, IDisposable
         void OnUse(InputAction.CallbackContext context);
         void OnPut(InputAction.CallbackContext context);
         void OnGetToOtherHand(InputAction.CallbackContext context);
+        void OnBreakDown(InputAction.CallbackContext context);
     }
 }

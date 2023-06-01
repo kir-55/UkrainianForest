@@ -265,6 +265,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ItemsForUkrainianForest_6
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 0
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89e9cdba99c7ae142a9f321702811483
+      internalID: -1535301917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ItemsForUkrainianForest_7
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 0
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36e4ca046a2c275448ea3949b30d6c97
+      internalID: -2011348946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ItemsForUkrainianForest_8
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 0
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34dd59f9c59146d4a80b9b6540052ffe
+      internalID: -1413340299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ItemsForUkrainianForest_9
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 0
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90d53f6cd6e28cd44a2684483ff034c4
+      internalID: 430294943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -277,11 +361,15 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       ItemsForUkrainianForest_0: 501113815
+      ItemsForUkrainianForest_6: -1535301917
+      ItemsForUkrainianForest_8: -1413340299
       ItemsForUkrainianForest_2: -663303418
       ItemsForUkrainianForest_4: 2123442103
       ItemsForUkrainianForest_1: 858885436
+      ItemsForUkrainianForest_9: 430294943
       ItemsForUkrainianForest_3: 43170404
       ItemsForUkrainianForest_5: -1125218848
+      ItemsForUkrainianForest_7: -2011348946
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 1
