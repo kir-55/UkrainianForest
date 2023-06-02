@@ -90,7 +90,7 @@ public class ZombieMove : MonoBehaviour
         transform.Rotate(0, 0, -90 +Random.Range(-20, 20));
         Vector3 runTo = transform.position + transform.up * Random.Range(1f, 10f);
         NavMeshHit hit;
-        NavMesh.SamplePosition(runTo, out hit, 5, 1 << NavMesh.GetNavMeshLayerFromName("Default"));
+        NavMesh.SamplePosition(runTo, out hit, 5, 1 << NavMesh.GetAreaFromName("Default"));
         transform.position = startTransform.position;
         transform.rotation = startTransform.rotation;
         agent.SetDestination(hit.position);

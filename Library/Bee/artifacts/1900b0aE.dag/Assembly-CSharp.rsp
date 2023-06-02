@@ -395,7 +395,6 @@
 "Assets/Scripts/InventorySlot.cs"
 "Assets/Scripts/ItemsInfo.cs"
 "Assets/Scripts/PlayerMove.cs"
-"Assets/Scripts/Ui.cs"
 "Assets/Scripts/ZombieMove.cs"
 -langversion:9.0
 

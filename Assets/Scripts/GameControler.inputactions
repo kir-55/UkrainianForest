@@ -269,8 +269,8 @@
                 {
                     "name": "",
                     "id": "296e39a9-e818-4afc-ab1f-8dd76764bd6a",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "Hold(duration=0.3)",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Put",
@@ -313,7 +313,7 @@
                 {
                     "name": "",
                     "id": "1f2c8237-aa37-43c4-9032-aa8f495bc350",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "Hold(duration=0.3)",
                     "processors": "",
                     "groups": "Gamepad",
