@@ -12,6 +12,7 @@ TagManager:
   - box
   - hose
   - outside
+  - WorkBench
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - BlockObjects
   - 
   - 
   - 

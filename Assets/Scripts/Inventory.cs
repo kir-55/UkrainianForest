@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     public int MaxSlotsInLeftHand = 1;
     private int rightHandCurrentSlotIndex = -1;
     private int leftHandCurrentSlotIndex = 0;
+    [SerializeField] private CraftingMenu craftingMenu;
     [SerializeField] private ItemsInfo ItemsInfo;
     private List<InventorySlot> rightHandSlots = new List<InventorySlot>();
     private List<InventorySlot> leftHandSlots = new List<InventorySlot>();
@@ -84,7 +85,6 @@ public class Inventory : MonoBehaviour
         {
             AddItem(rightHandItemTupe, leftHandSlots, MaxSlotsInLeftHand, rightHandItemAmount, false);
             RemoveItem(rightHandItemTupe, rightHandSlots, true, rightHandItemAmount);
-            print("lhcsi: " + leftHandCurrentSlotIndex);
             if(leftHandSlots.Count > leftHandCurrentSlotIndex)
                 currentItem.SetCurrentItem(leftHandSlots[leftHandCurrentSlotIndex].ItemType, false);
         }
@@ -226,5 +226,6 @@ public class Inventory : MonoBehaviour
         print("rewrited  inventory (166) right hand slots amount: " + rightHandSlots.Count); 
         print("rewrited  inventory (166) left hand slots amount: " + leftHandSlots.Count);
     }
+    public CraftingMenu GetCraftingMenu() => craftingMenu;
     public List<InventorySlot> GetSlots(bool isRightHand = true) => (isRightHand ? rightHandSlots : leftHandSlots);
 }

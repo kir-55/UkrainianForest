@@ -17,6 +17,7 @@ public class ItemsInfo : MonoBehaviour
         public int typeNumber;
         public GameObject prefabInHand;
         public TileBase tile;
+        public GameObject blockPrefab;
         public bool isBlock;
         public bool isPowerup;
         public bool canBeUsed;

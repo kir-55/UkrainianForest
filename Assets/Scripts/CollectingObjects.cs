@@ -33,6 +33,5 @@ public class CollectingObjects : MonoBehaviour
                 }
             }
         }
-        print("collecting (36)");
     }
 }

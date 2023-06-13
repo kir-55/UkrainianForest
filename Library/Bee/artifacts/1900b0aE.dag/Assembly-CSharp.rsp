@@ -383,6 +383,7 @@
 "Assets/Scripts/CameraController.cs"
 "Assets/Scripts/CollectibleObject.cs"
 "Assets/Scripts/CollectingObjects.cs"
+"Assets/Scripts/CraftingMenu.cs"
 "Assets/Scripts/CurrentItem.cs"
 "Assets/Scripts/Destroyer.cs"
 "Assets/Scripts/EnemySpawner.cs"
@@ -395,6 +396,8 @@
 "Assets/Scripts/InventorySlot.cs"
 "Assets/Scripts/ItemsInfo.cs"
 "Assets/Scripts/PlayerMove.cs"
+"Assets/Scripts/RecipeVisualiser.cs"
+"Assets/Scripts/Workbench.cs"
 "Assets/Scripts/ZombieMove.cs"
 -langversion:9.0
 
