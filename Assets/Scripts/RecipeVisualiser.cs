@@ -1,8 +1,8 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using static Workbench;
 
 public class RecipeVisualiser : MonoBehaviour
@@ -19,7 +19,7 @@ public class RecipeVisualiser : MonoBehaviour
             foreach (Items Ingrigient in Ingridients)
             {
                 GameObject ItemVisualisation = Instantiate(ItemVisualisationPrefab, transform.GetChild(0));
-                ItemVisualisation.GetComponent<SpriteRenderer>().sprite = ItemsInfo.itemTupesInfos[Ingrigient.tupe].icon;
+                ItemVisualisation.GetComponent<Image>().sprite = ItemsInfo.itemTupesInfos[Ingrigient.tupe - 1].icon;
                 ItemVisualisation.transform.GetChild(0).GetComponent<TMP_Text>().text = Ingrigient.amount.ToString();
 
             }
@@ -32,7 +32,7 @@ public class RecipeVisualiser : MonoBehaviour
             foreach (Items Product in Products)
             {
                 GameObject ItemVisualisation = Instantiate(ItemVisualisationPrefab, transform.GetChild(1));
-                ItemVisualisation.GetComponent<SpriteRenderer>().sprite = ItemsInfo.itemTupesInfos[Product.tupe].icon;
+                ItemVisualisation.GetComponent<Image>().sprite = ItemsInfo.itemTupesInfos[Product.tupe - 1].icon;
                 ItemVisualisation.transform.GetChild(0).GetComponent<TMP_Text>().text = Product.amount.ToString();
 
             }

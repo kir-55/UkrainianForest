@@ -27,13 +27,13 @@ public class Workbench : MonoBehaviour
             if (craftingMenu == null)
                 craftingMenu = collider.gameObject.GetComponent<Inventory>().GetCraftingMenu();
 
-            craftingMenu.AddWorkbench(this);
+            craftingMenu.AddWorkbench(recipes);
        }
             
     }
     private void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.gameObject.CompareTag("player") && craftingMenu)
-            craftingMenu.RemoveWorkbench(this);
+            craftingMenu.RemoveWorkbench(recipes);
     }
 }

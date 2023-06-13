@@ -36,7 +36,7 @@ public class CurrentItem : MonoBehaviour
         gameControler.Gamepad.Put.performed += ctx => Put();
         gameControler.Gamepad.BreakDown.performed += ctx => BreakDown();
     }
-    private void Put()
+    private bool Put()
     {
         if(rightHandItemTupe > -1)
         {
@@ -49,19 +49,16 @@ public class CurrentItem : MonoBehaviour
                 if(itemInfos.tile || itemInfos.blockPrefab)
                 {
                     if (itemInfos.blockPrefab)
-                    {
-                        GameObject newBlock = Instantiate(itemInfos.blockPrefab, dropPoint.transform.position, Quaternion.identity);
-                        if (newBlock.GetComponent<Workbench>())
-                            newBlock.GetComponent<Workbench>().craftingMenu = craftingMenu;
-                    }    
-                    else if(itemInfos.tile)
+                        Instantiate(itemInfos.blockPrefab, dropPoint.transform.position, Quaternion.identity);
+                    else if(itemInfos.tile && (itemInfos.isBlock ? blockTileMap : tileMap).GetTile(tilePosition) != itemInfos.tile)
                         (itemInfos.isBlock ? blockTileMap : tileMap).SetTile(tilePosition, itemInfos.tile);
+                    else
+                        return false;
                     inventory.RemoveItem(rightHandItemTupe, inventory.GetSlots());
                 }
-                
             }
-                
         }
+        return true;
     }
     private void BreakDown()
     {

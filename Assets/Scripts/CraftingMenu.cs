@@ -5,27 +5,29 @@ using static Workbench;
 
 public class CraftingMenu : MonoBehaviour
 {
-    private List<Workbench> activeWorkbenches;
+    private List<Recipe[]> activeWorkbenches;
     [SerializeField] private ItemsInfo itemsInfo;
     [SerializeField] private Inventory inventory;
     [SerializeField] private GameObject craftingMenuPanel;
     [SerializeField] private GameObject recipePanelPrefab;
     [SerializeField] private GameObject playerDropPoint;
+    [SerializeField] public Recipe[] existingRecipes;
     private void Start()
     {
-        activeWorkbenches = new List<Workbench>();  
+        activeWorkbenches = new List<Recipe[]>();
+        AddWorkbench(existingRecipes);
     }
-    public void AddWorkbench(Workbench workbench)
+    public void AddWorkbench(Recipe[] recipes)
     {
         print("added");
-        activeWorkbenches.Add(workbench);
+        activeWorkbenches.Add(recipes);
         if (craftingMenuPanel.activeSelf)
             RwenerateRecipes();
     }
-    public void RemoveWorkbench(Workbench workbench)
+    public void RemoveWorkbench(Recipe[] recipes)
     {
         print("removed");
-        activeWorkbenches.Remove(workbench);
+        activeWorkbenches.Remove(recipes);
         if (craftingMenuPanel.activeSelf)
             RwenerateRecipes();
     }
@@ -35,46 +37,60 @@ public class CraftingMenu : MonoBehaviour
         Transform content = craftingMenuPanel.transform.GetChild(0).GetChild(0);
 
         for (int i = 0; i < content.childCount; i++)
-            Destroy(content.GetChild(i));
+            Destroy(content.GetChild(i).gameObject);
 
         for (int i = 0; i < activeWorkbenches.Count; i++)
         {
-            for(int j = 0; j < activeWorkbenches[i].recipes.Length;)
+            for(int j = 0; j < activeWorkbenches[i].Length; j++)
             {
                 RecipeVisualiser currentRecipeVisualiser = Instantiate(recipePanelPrefab, content).GetComponent<RecipeVisualiser>();
                 currentRecipeVisualiser.ItemsInfo = itemsInfo;
-                currentRecipeVisualiser.Products = activeWorkbenches[i].recipes[j].Products;
-                currentRecipeVisualiser.Ingridients = activeWorkbenches[i].recipes[j].Ingridients;
+                currentRecipeVisualiser.Products = activeWorkbenches[i][j].Products;
+                currentRecipeVisualiser.Ingridients = activeWorkbenches[i][j].Ingridients;
                 currentRecipeVisualiser.CraftingMenu = this;
             }
         }
     }
     
-    public void ActivateCraftingMenu()
+    public void SwithCraftingMenu()
     {
-        RwenerateRecipes();
-        craftingMenuPanel.SetActive(true);
-    }
-    public void DeactivateCraftingMenu()
-    {
-        craftingMenuPanel.SetActive(false);    
+        if(craftingMenuPanel.activeSelf)
+            craftingMenuPanel.SetActive(false);
+        else 
+        { 
+            RwenerateRecipes();
+            craftingMenuPanel.SetActive(true);
+        }  
     }
     public bool Craft(Items[] ingridients, Items[] products) 
     {
-        if(ingridients != null && products != null) 
+        if (ingridients != null && products != null)
         {
+            int i = 0;
             foreach (Items ingridient in ingridients)
+            {
+                print("i: " + i + " t: "+ inventory.GetItemAmount(ingridient.tupe)+ " a: " + ingridient.amount);
                 if (inventory.GetItemAmount(ingridient.tupe) >= ingridient.amount)
+                    i++;
+            }
+            
+                
+            
+            if (i == ingridients.Length)
+            {
+                foreach (Items ingridient in ingridients)
                     inventory.RemoveItem(ingridient.tupe, inventory.GetSlots(), true, ingridient.amount);
 
-            foreach (Items product in products)
-                if (itemsInfo.itemTupesInfos.Length > 0) 
-                { 
-                    GameObject droppedProduct = Instantiate(itemsInfo.itemTupesInfos[product.tupe].prefab, playerDropPoint.transform.position, Quaternion.identity);
-                    droppedProduct.GetComponent<CollectibleObject>().itemAmount = product.amount;
-                }
-                                    
+                foreach (Items product in products)
+                    if (itemsInfo.itemTupesInfos.Length > 0)
+                    {
+                        GameObject droppedProduct = Instantiate(itemsInfo.itemTupesInfos[product.tupe - 1].prefab, playerDropPoint.transform.position, Quaternion.identity);
+                        droppedProduct.GetComponent<CollectibleObject>().itemAmount = product.amount;
+                    }
+            }
+
+
         }
         return true;
     }
-}
+} 
