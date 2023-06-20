@@ -385,6 +385,7 @@
 "Assets/Scripts/CollectingObjects.cs"
 "Assets/Scripts/CraftingMenu.cs"
 "Assets/Scripts/CurrentItem.cs"
+"Assets/Scripts/DayNightCycle.cs"
 "Assets/Scripts/Destroyer.cs"
 "Assets/Scripts/EnemySpawner.cs"
 "Assets/Scripts/GameControler.cs"
