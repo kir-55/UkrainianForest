@@ -538,6 +538,153 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ItemsForUkrainianForest_19
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 0
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e85db1d52cb0da47b22ca4f70c0598d
+      internalID: -549915940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ItemsForUkrainianForest_20
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 0
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 374aa13c8ba15be4aabd4b1a1c98594e
+      internalID: -444709068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ItemsForUkrainianForest_21
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 0
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b96728f5f0c1d04da2abd64e0301a26
+      internalID: -1742969115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ItemsForUkrainianForest_22
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 0
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed376ebb7de8c3240b2f7da4e27b054e
+      internalID: 565095207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ItemsForUkrainianForest_23
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 0
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65b390ccd0a26b94db9945fc9783014b
+      internalID: -230118661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ItemsForUkrainianForest_24
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 0
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e483eb81afab9e64d8f28e4cf6be6118
+      internalID: 1010258482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ItemsForUkrainianForest_25
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 0
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3889373c1ae754428dea263a7dab983
+      internalID: -1118878691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -549,20 +696,27 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      ItemsForUkrainianForest_21: -1742969115
       ItemsForUkrainianForest_0: 501113815
       ItemsForUkrainianForest_17: -428431993
+      ItemsForUkrainianForest_19: -549915940
       ItemsForUkrainianForest_14: -1926606262
       ItemsForUkrainianForest_6: -1535301917
       ItemsForUkrainianForest_11: -1619051508
       ItemsForUkrainianForest_8: -1413340299
       ItemsForUkrainianForest_2: -663303418
+      ItemsForUkrainianForest_22: 565095207
       ItemsForUkrainianForest_10: -628970545
       ItemsForUkrainianForest_4: 2123442103
       ItemsForUkrainianForest_16: 1984721377
+      ItemsForUkrainianForest_20: -444709068
       ItemsForUkrainianForest_1: 858885436
       ItemsForUkrainianForest_9: 430294943
       ItemsForUkrainianForest_13: -929472771
       ItemsForUkrainianForest_18: 1538408239
+      ItemsForUkrainianForest_24: 1010258482
+      ItemsForUkrainianForest_25: -1118878691
+      ItemsForUkrainianForest_23: -230118661
       ItemsForUkrainianForest_12: -287698348
       ItemsForUkrainianForest_3: 43170404
       ItemsForUkrainianForest_5: -1125218848
