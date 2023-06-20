@@ -1,6 +1,8 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class ZombieMove : MonoBehaviour
 {
@@ -16,37 +18,59 @@ public class ZombieMove : MonoBehaviour
     private bool canAttack = true;
     public Transform startTransform { get; private set; }
     private NavMeshAgent agent;
+    [SerializeField] private LayerMask targetsLayers;
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        StartCoroutine(CheckForPlayer());
     }
     private void Update()
     {
-        Ray2D ray = new Ray2D(transform.GetChild(0).transform.position, transform.up);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 5f);
+        //Ray2D ray = new Ray2D(transform.GetChild(0).transform.position, transform.up);
+        //RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 5f);
 
-        if (isSecurity)
-            if (hit.collider != null && hit.collider.CompareTag("player"))
-            {
-                player = hit.collider.gameObject.transform;
-                agent.SetDestination(player.position);
-                Vector2 direction = player.position - transform.position;
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 6f * Time.deltaTime);
-                if (canAttack && Vector2.Distance(transform.position, player.position) <= attackRange)
-                    Attack();
+        
+            //if (hit.collider != null && hit.collider.CompareTag("player"))
+            //{
+                //player = hit.collider.gameObject.transform;
                 
-            }
+                
+            //}
        
     }
-    private void Attack()
+    private IEnumerator CheckForPlayer()
+    {
+
+        for(; ; )
+        {
+            if (isSecurity) 
+            { 
+                Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, 5f, targetsLayers);
+                if (targets.Length != 0)
+                {
+                    agent.SetDestination(targets[0].transform.position);
+                    Vector2 direction = targets[0].transform.position - transform.position;
+                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 6f * Time.deltaTime);
+                    if (canAttack && Vector2.Distance(transform.position, targets[0].transform.position) <= attackRange)
+                        Attack(targets[0].gameObject);
+                }
+                
+            }
+            yield return new WaitForSeconds(2f);
+        }
+        
+    }
+    private void Attack(GameObject target)
     {
         canAttack = false;
-        player.GetComponent<HealthSystem>().TakeDamage(attackDamage);
+        if(target.GetComponent<HealthSystem>())
+            target.GetComponent<HealthSystem>().TakeDamage(attackDamage);
         Invoke("ResetAttack", attackDelay);
         audioSource.PlayOneShot(biteSound);
         audioSource.transform.position = transform.position;
@@ -66,7 +90,7 @@ public class ZombieMove : MonoBehaviour
         transform.Rotate(0, 0, -90 +Random.Range(-20, 20));
         Vector3 runTo = transform.position + transform.up * Random.Range(1f, 10f);
         NavMeshHit hit;
-        NavMesh.SamplePosition(runTo, out hit, 5, 1 << NavMesh.GetNavMeshLayerFromName("Default"));
+        NavMesh.SamplePosition(runTo, out hit, 5, 1 << NavMesh.GetAreaFromName("Default"));
         transform.position = startTransform.position;
         transform.rotation = startTransform.rotation;
         agent.SetDestination(hit.position);
