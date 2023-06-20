@@ -69,7 +69,6 @@ public class CraftingMenu : MonoBehaviour
             int i = 0;
             foreach (Items ingridient in ingridients)
             {
-                print("i: " + i + " t: "+ inventory.GetItemAmount(ingridient.tupe)+ " a: " + ingridient.amount);
                 if (inventory.GetItemAmount(ingridient.tupe) >= ingridient.amount)
                     i++;
             }
@@ -79,7 +78,11 @@ public class CraftingMenu : MonoBehaviour
             if (i == ingridients.Length)
             {
                 foreach (Items ingridient in ingridients)
+                {
                     inventory.RemoveItem(ingridient.tupe, inventory.GetSlots(), true, ingridient.amount);
+                    //inventory.RewriteInventory();
+                }
+                    
 
                 foreach (Items product in products)
                     if (itemsInfo.itemTupesInfos.Length > 0)

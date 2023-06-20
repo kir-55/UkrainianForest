@@ -136,6 +136,7 @@ public class Inventory : MonoBehaviour
                     {
                         slot.Recount(-slot.GetItemAmount());
                         slots.Remove(slot);
+                        RewriteInventory(isRightHand);
                         return true;
                     }
                     else 

@@ -59,6 +59,14 @@ MonoBehaviour:
     Products:
     - tupe: 7
       amount: 3
+  - Ingridients:
+    - tupe: 23
+      amount: 2
+    - tupe: 24
+      amount: 4
+    Products:
+    - tupe: 25
+      amount: 1
 --- !u!58 &6859923300894335718
 CircleCollider2D:
   m_ObjectHideFlags: 0
