@@ -26,7 +26,7 @@ public class CollectingObjects : MonoBehaviour
             {
                 if (playerInventory.AddItem(collectible.ItemTupe, playerInventory.GetSlots(),playerInventory.MaxSlotsInRightHand, collectible.itemAmount))
                 {
-                    collectible.Collect();
+Destroy(collectible.gameObject);
                     audioSource.PlayOneShot(collectingSound);
                     audioSource.transform.position = playerTransform.position;
                     audioSource.transform.rotation = playerTransform.rotation;
