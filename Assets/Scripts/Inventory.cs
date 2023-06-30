@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -136,6 +135,7 @@ public class Inventory : MonoBehaviour
                     {
                         slot.Recount(-slot.GetItemAmount());
                         slots.Remove(slot);
+                        RewriteInventory(isRightHand);
                         return true;
                     }
                     else 

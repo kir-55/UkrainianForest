@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]private float speed, rotationSpeed;
     [SerializeField]private int maxLife;
     [SerializeField]private Image healthBar;
+    [SerializeField]private CameraController cameraController;
 
     private Vector2 move, rotation;
     private Rigidbody2D rb;
@@ -44,6 +45,7 @@ public class PlayerMove : MonoBehaviour
             transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         }
     }
+
 
     private void FixedUpdate()
     {

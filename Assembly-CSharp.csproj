@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\CollectingObjects.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
     <Compile Include="Assets\Scripts\InventorySlot.cs" />
+    <Compile Include="Assets\Scripts\DayNightCycle.cs" />
     <Compile Include="Assets\Scripts\Destroyer.cs" />
     <Compile Include="Assets\Scripts\GameControler.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
