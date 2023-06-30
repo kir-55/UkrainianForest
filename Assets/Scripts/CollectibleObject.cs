@@ -11,8 +11,7 @@ public class CollectibleObject : MonoBehaviour
     private void Start()
     {
         InstantiationTime = Time.time;
-    
-
+    }
     private void OnTriggerStay2D(Collider2D other)
     {
         if(other.gameObject.GetComponent<CollectibleObject>())
@@ -23,8 +22,7 @@ public class CollectibleObject : MonoBehaviour
                 itemAmount += droppedItem.itemAmount;
 
                 if (InstantiationTime > droppedItem.InstantiationTime)
-                    Destroy(other.gameObject);
-                  
+                    Destroy(other.gameObject);   
             }
         }
     }

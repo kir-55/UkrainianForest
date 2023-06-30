@@ -22,11 +22,11 @@ public class CollectingObjects : MonoBehaviour
         if (((1 << other.gameObject.layer) & collectibleLayerMask) != 0)
         {
             CollectibleObject collectible = null;
-            if (other.TryGetComponent(out collectible) && collectible.IsCollectable)
+            if (other.TryGetComponent(out collectible) && collectible != null)
             {
                 if (playerInventory.AddItem(collectible.ItemTupe, playerInventory.GetSlots(),playerInventory.MaxSlotsInRightHand, collectible.itemAmount))
                 {
-Destroy(collectible.gameObject);
+                    Destroy(collectible.gameObject);
                     audioSource.PlayOneShot(collectingSound);
                     audioSource.transform.position = playerTransform.position;
                     audioSource.transform.rotation = playerTransform.rotation;
