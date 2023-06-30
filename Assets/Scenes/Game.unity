@@ -18869,7 +18869,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450021016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.97, y: -14.31, z: 0}
+  m_LocalPosition: {x: -4.034, y: 5.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18897,6 +18897,7 @@ MonoBehaviour:
   rotationSpeed: 50
   maxLife: 10
   healthBar: {fileID: 1351519656}
+  cameraController: {fileID: 519420030}
 --- !u!1001 &1474717282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19402,7 +19403,7 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 300
-      value: 1
+      value: 0.8988724
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -19818,11 +19819,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8490105766886198523, guid: 6b804a42301f0c84d9a8d7c1ccee9146, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.8582654
+      value: -5.63
       objectReference: {fileID: 0}
     - target: {fileID: 8490105766886198523, guid: 6b804a42301f0c84d9a8d7c1ccee9146, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.59211093
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 8490105766886198523, guid: 6b804a42301f0c84d9a8d7c1ccee9146, type: 3}
       propertyPath: m_LocalPosition.z
