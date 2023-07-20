@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1792453, g: 0.1600807, b: 0.1600807, a: 1}
+  m_Color: {r: 0.3019608, g: 0.20784314, b: 0.2, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -308,7 +308,7 @@ MonoBehaviour:
   Index: 0
   ItemAmountText: {fileID: 1294414735415308084}
   ItemIcon: {fileID: 1294414735715407940}
-  NormalSlotColor: {r: 0, g: 0, b: 0, a: 0}
+  NormalSlotColor: {r: 0.63529414, g: 0.42745098, b: 0.24705882, a: 0}
 --- !u!1 &2312494674223296951
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3018868, g: 0.27530557, b: 0.27530557, a: 1}
+  m_Color: {r: 0.3019608, g: 0.20784314, b: 0.2, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

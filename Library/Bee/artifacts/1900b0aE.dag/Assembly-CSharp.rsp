@@ -396,6 +396,7 @@
 "Assets/Scripts/InventoryPanel.cs"
 "Assets/Scripts/InventorySlot.cs"
 "Assets/Scripts/ItemsInfo.cs"
+"Assets/Scripts/LoseUIPanel.cs"
 "Assets/Scripts/PlayerMove.cs"
 "Assets/Scripts/RecipeVisualiser.cs"
 "Assets/Scripts/Workbench.cs"

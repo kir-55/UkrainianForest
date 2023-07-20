@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class HealthSystem : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 1f;
+    
     [SerializeField] private Image healthBar;
     [SerializeField] private Text healthCountText;
-    [SerializeField] private bool hpSun;
-    [SerializeField] private bool vibration;
     [SerializeField] private CameraController cameraController;
-    [SerializeField] private bool destroyOnDie = true;
+    [SerializeField] private string healTag;
+    [SerializeField] private bool vibration;
+    [SerializeField] private bool destroyOnDie = true; 
+    [SerializeField] private bool loadSceneOnDie;
+    [SerializeField] private int sceneIndex;
+    [SerializeField] private float maxHealth = 1f;
+
     private float currentHealth;
     private bool shield;
     private float damageResistance, shieldEndTime;
@@ -44,7 +49,7 @@ public class HealthSystem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (hpSun && other.gameObject.CompareTag("HpSun"))
+        if (healTag != "" && other.gameObject.CompareTag(healTag))
         {
             Destroy(other.gameObject);
             TakeDamage(-other.gameObject.transform.localScale.x);
@@ -67,6 +72,8 @@ public class HealthSystem : MonoBehaviour
         {
             if(destroyOnDie)
                 Destroy(gameObject);
+            else if(loadSceneOnDie)
+                SceneManager.LoadScene(sceneIndex);
             return;
         }
 

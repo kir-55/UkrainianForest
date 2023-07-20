@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private InventoryPanel inventoryPanel;
     [SerializeField] private CurrentItem currentItem;
     public Color NormalSlotColor;
+    public Color SelectedSlotColor;
     [SerializeField] private Transform dropPoint;
 
     private void Start()
@@ -90,9 +91,9 @@ public class Inventory : MonoBehaviour
  
         RewriteInventory();
         if (leftHandCurrentSlotIndex > -1 && leftHandSlots.Count > leftHandCurrentSlotIndex)
-            leftHandSlots[leftHandCurrentSlotIndex].transform.parent.GetComponent<Image>().color = Color.yellow;
+            leftHandSlots[leftHandCurrentSlotIndex].transform.parent.GetComponent<Image>().color = SelectedSlotColor;
         if (rightHandCurrentSlotIndex > -1 && rightHandSlots.Count > rightHandCurrentSlotIndex)
-            rightHandSlots[rightHandCurrentSlotIndex].transform.parent.GetComponent<Image>().color = Color.yellow;
+            rightHandSlots[rightHandCurrentSlotIndex].transform.parent.GetComponent<Image>().color = SelectedSlotColor;
     }
     public bool AddItem(int itemType, List<InventorySlot> slots, int maxSlotsCount, int itemAmount = 1, bool isRightHand = true)
     {
@@ -192,7 +193,7 @@ public class Inventory : MonoBehaviour
 
             currentItem.SetCurrentItem(staticSlots[newCurrentSlotIndex].ItemType, isRightHand);
             RewriteInventory(isRightHand);
-            (isRightHand ? rightHandSlots : leftHandSlots)[newCurrentSlotIndex].transform.parent.GetComponent<Image>().color = Color.yellow;
+            (isRightHand ? rightHandSlots : leftHandSlots)[newCurrentSlotIndex].transform.parent.GetComponent<Image>().color = SelectedSlotColor;
             return true;
         }
         return false;
