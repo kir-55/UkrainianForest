@@ -201,7 +201,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 4
+  m_Speed: 6
   m_Acceleration: 6
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -225,13 +225,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecf7f42ca654734ebfa646b9c706a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
   healthBar: {fileID: 0}
   healthCountText: {fileID: 0}
-  hpSun: 0
-  vibration: 0
   cameraController: {fileID: 0}
+  healTag: 
+  vibration: 0
   destroyOnDie: 1
+  loadSceneOnDie: 0
+  sceneIndex: 0
+  maxHealth: 5
 --- !u!82 &3050284448065252842
 AudioSource:
   m_ObjectHideFlags: 0

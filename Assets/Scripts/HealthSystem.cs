@@ -11,6 +11,7 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private Image healthBar;
     [SerializeField] private Text healthCountText;
     [SerializeField] private CameraController cameraController;
+    [SerializeField] private OneFrameAnimationsControl injureLevelsVisualControl;
     [SerializeField] private string healTag;
     [SerializeField] private bool vibration;
     [SerializeField] private bool destroyOnDie = true; 
@@ -82,6 +83,20 @@ public class HealthSystem : MonoBehaviour
 
         if (healthBar)
             healthBar.fillAmount = currentHealth / maxHealth;
+
+
+        if (injureLevelsVisualControl)
+        {
+            int currentInjureLevel = injureLevelsVisualControl.GetCurrentFrameIndex();
+            if (currentHealth > (injureLevelsVisualControl.GetFramesAmount() - (currentInjureLevel + 1)) * (maxHealth / injureLevelsVisualControl.GetFramesAmount() + 1))// first level
+                injureLevelsVisualControl.SetFrame(currentInjureLevel - 1);
+            else if (currentHealth < (injureLevelsVisualControl.GetFramesAmount() - (currentInjureLevel + 1)) * (maxHealth / injureLevelsVisualControl.GetFramesAmount() + 1))
+                injureLevelsVisualControl.SetFrame(currentInjureLevel + 1);
+
+        }
+            
+
+
 
         if (healthCountText)
             healthCountText.text = "HP: " + currentHealth.ToString();
