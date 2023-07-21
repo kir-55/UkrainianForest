@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\RecipeVisualiser.cs" />
+    <Compile Include="Assets\Scripts\OneFrameAnimationsControl.cs" />
     <Compile Include="Assets\Scripts\Box.cs" />
     <Compile Include="Assets\Scripts\Goose.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
@@ -77,9 +78,9 @@
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\Workbench.cs" />
     <Compile Include="Assets\Scripts\CraftingMenu.cs" />
+    <Compile Include="Assets\Scripts\EntityAtack.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\OneFrameAnimationsControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

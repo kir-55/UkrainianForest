@@ -3,105 +3,72 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
 
 public class ZombieMove : MonoBehaviour
 {
 
-    [SerializeField] private Transform player;
-    [SerializeField] private bool isSecurity = true;
-    [SerializeField] private float attackRange = 1.5f;
-    [SerializeField] private int attackDamage = 10;
-    [SerializeField] private float attackDelay = 1f;
-    [SerializeField] private AudioClip biteSound;
-
-    private AudioSource audioSource;
-    private bool canAttack = true;
-    public Transform startTransform { get; private set; }
     private NavMeshAgent agent;
+
+    [SerializeField] private Transform player;
+    [SerializeField] private Vector3 runTo;
+    [SerializeField] private bool isSecure = true;
     [SerializeField] private LayerMask targetsLayers;
+
+    public Transform startTransform { get; private set; }
+    
+    
 
     private void Start()
     {
+        runTo = Vector3.zero;
         agent = GetComponent<NavMeshAgent>();
-        audioSource = GetComponent<AudioSource>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        StartCoroutine(CheckForPlayer());
     }
+
     private void Update()
     {
-        //Ray2D ray = new Ray2D(transform.GetChild(0).transform.position, transform.up);
-        //RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 5f);
-
-        
-            //if (hit.collider != null && hit.collider.CompareTag("player"))
-            //{
-                //player = hit.collider.gameObject.transform;
-                
-                
-            //}
-       
-    }
-    private IEnumerator CheckForPlayer()
-    {
-
-        for(; ; )
+        if (isSecure)
         {
-            if (isSecurity) 
-            { 
-                Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, 5f, targetsLayers);
-                if (targets.Length != 0)
-                {
-                    agent.SetDestination(targets[0].transform.position);
-                    Vector2 direction = targets[0].transform.position - transform.position;
-                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                    Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 6f * Time.deltaTime);
-                    if (canAttack && Vector2.Distance(transform.position, targets[0].transform.position) <= attackRange)
-                        Attack(targets[0].gameObject);
-                }
-                
+            Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, 5f, targetsLayers);
+            if (targets.Length != 0)
+            {
+                agent.SetDestination(targets[0].gameObject.transform.position);
+                RotateTo(targets[0].transform.position, 90);
             }
-            yield return new WaitForSeconds(2f);
         }
-        
-    }
-    private void Attack(GameObject target)
-    {
-        canAttack = false;
-        if(target.GetComponent<HealthSystem>())
-            target.GetComponent<HealthSystem>().TakeDamage(attackDamage);
-        Invoke("ResetAttack", attackDelay);
-        audioSource.PlayOneShot(biteSound);
-        audioSource.transform.position = transform.position;
-        audioSource.transform.rotation = transform.rotation;
     }
 
-    private void ResetAttack()
-    {
-        canAttack = true;
-    }
     private void RunFrom(Transform target)
     {
-        startTransform = transform;
-        Vector3 targetDirection = transform.position - target.position;
-        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+        
+
+        RotateTo(target.position, -90);
+
+        if (runTo == Vector3.zero)
+            runTo = transform.position + transform.up * Random.Range(1f, 10f);
+
+        agent.SetDestination(runTo);
+
+        if(Vector3.Distance(transform.position, runTo) < 1f )
+        {
+            isSecure = true;
+            runTo = Vector3.zero;
+        }
+    }
+    private void RotateTo(Vector3 targetPosition, float offset)
+    {
+        Vector3 targetDirection = transform.position - targetPosition;
+        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg + offset;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.Rotate(0, 0, -90 +Random.Range(-20, 20));
-        Vector3 runTo = transform.position + transform.up * Random.Range(1f, 10f);
-        NavMeshHit hit;
-        NavMesh.SamplePosition(runTo, out hit, 5, 1 << NavMesh.GetAreaFromName("Default"));
-        transform.position = startTransform.position;
-        transform.rotation = startTransform.rotation;
-        agent.SetDestination(hit.position);
-        isSecurity = true;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("goose"))
         {
-            isSecurity = false;
+            isSecure = false;
             RunFrom(collision.gameObject.transform);
         }
     }

@@ -388,6 +388,7 @@
 "Assets/Scripts/DayNightCycle.cs"
 "Assets/Scripts/Destroyer.cs"
 "Assets/Scripts/EnemySpawner.cs"
+"Assets/Scripts/EntityAtack.cs"
 "Assets/Scripts/GameControler.cs"
 "Assets/Scripts/Goose.cs"
 "Assets/Scripts/Gun.cs"
