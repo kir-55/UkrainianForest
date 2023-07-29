@@ -66,7 +66,7 @@
     <Compile Include="Assets\Scripts\InventoryPanel.cs" />
     <Compile Include="Assets\Scripts\ItemsInfo.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
-    <Compile Include="Assets\Scripts\ZombieMove.cs" />
+    <Compile Include="Assets\Scripts\AITransform.cs" />
     <Compile Include="Assets\Scripts\CollectibleObject.cs" />
     <Compile Include="Assets\Scripts\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\CollectingObjects.cs" />
@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\EntityAtack.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\AILogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

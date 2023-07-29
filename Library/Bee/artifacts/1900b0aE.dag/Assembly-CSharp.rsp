@@ -378,6 +378,8 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
+"Assets/Scripts/AILogic.cs"
+"Assets/Scripts/AITransform.cs"
 "Assets/Scripts/Box.cs"
 "Assets/Scripts/Bullet.cs"
 "Assets/Scripts/CameraController.cs"
@@ -402,7 +404,6 @@
 "Assets/Scripts/PlayerMove.cs"
 "Assets/Scripts/RecipeVisualiser.cs"
 "Assets/Scripts/Workbench.cs"
-"Assets/Scripts/ZombieMove.cs"
 -langversion:9.0
 
 /deterministic
