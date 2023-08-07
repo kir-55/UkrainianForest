@@ -123,11 +123,15 @@ public class HealthSystem : MonoBehaviour
 
         if (injureLevelsVisualControl)
         {
-            int currentInjureLevel = injureLevelsVisualControl.GetCurrentFrameIndex();
-            if (currentHealth > (injureLevelsVisualControl.GetFramesAmount() - (currentInjureLevel + 1)) * (maxHealth / injureLevelsVisualControl.GetFramesAmount() + 1))// first level
+            int currentInjureLevel = injureLevelsVisualControl.GetCurrentFrameIndex() + 2;
+            int framesAmount = injureLevelsVisualControl.GetFramesAmount() + 1;
+            float healthPerInjureLevel = maxHealth / framesAmount; //5.(3)
+            float expectedHealthLevel = (framesAmount - currentInjureLevel) * healthPerInjureLevel;// (3-i) * 5.(3) = 16 - 5.(3)i
+
+            if (currentHealth < expectedHealthLevel)
+                injureLevelsVisualControl.SetFrame(currentInjureLevel - 3);
+            else if (currentHealth - expectedHealthLevel < 0)
                 injureLevelsVisualControl.SetFrame(currentInjureLevel - 1);
-            else if (currentHealth < (injureLevelsVisualControl.GetFramesAmount() - (currentInjureLevel + 1)) * (maxHealth / injureLevelsVisualControl.GetFramesAmount() + 1))
-                injureLevelsVisualControl.SetFrame(currentInjureLevel + 1);
         }
 
         if (healthCountText)

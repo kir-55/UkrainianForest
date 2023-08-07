@@ -27,8 +27,21 @@ public class AITransform : MonoBehaviour
     {
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
+    public bool IsAgentArrived()
+    {
+       if (agent.pathStatus == NavMeshPathStatus.PathComplete && !agent.isPathStale)
+            return true;
+       
+       return false;
+    }
 
+    //IsPathStale()
+    //remainingDistance
+    //pathStatus
 
+    //isOnNavMesh
+    //FindClosestEdge(out NavMeshHit hit)
+    //
     public void MoveTo(Vector3 targetPosition)
     {
         agent.SetDestination(targetPosition);

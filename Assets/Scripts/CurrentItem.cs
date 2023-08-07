@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-//using UnityEditor.Tilemaps;
+using NavMeshPlus.Components;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 
 public class CurrentItem : MonoBehaviour
@@ -17,6 +15,7 @@ public class CurrentItem : MonoBehaviour
     [SerializeField] private Tilemap blockTileMap, tileMap;
     [SerializeField] private Inventory inventory;
     [SerializeField] private LayerMask blockObjectsLayer;
+    [SerializeField] private NavMeshSurface navMeshSurface;
     public BlockInfos[] blocksInfos;
     private int rightHandItemTupe = -1, leftHandItemTupe = -1;
     private GameControler gameControler;
@@ -55,6 +54,7 @@ public class CurrentItem : MonoBehaviour
                     else
                         return false;
                     inventory.RemoveItem(rightHandItemTupe, inventory.GetSlots());
+                    Invoke("UpdateMesh", 0.1f);
                 }
             }
         }
@@ -86,9 +86,7 @@ public class CurrentItem : MonoBehaviour
         {
             tileToFind = tileMap.GetTile(tilePosition);
             tileMap.SetTile(tilePosition, null);
-        }
-        
-            
+        }  
 
         foreach (BlockInfos block in blocksInfos)
         {
@@ -98,11 +96,16 @@ public class CurrentItem : MonoBehaviour
                 DroppedItem.GetComponent<CollectibleObject>().itemAmount = block.DropCollectableObjectAmount;
             }
         }
+        Invoke("UpdateMesh", 0.1f);
+    }
 
-       
-            
-        
+    public void UpdateMesh()
+    {
 
+        if (navMeshSurface.navMeshData != null)
+            navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
+        else
+            navMeshSurface.BuildNavMesh();
         
     }
 

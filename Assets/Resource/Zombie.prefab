@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 5733435301771678388}
   - component: {fileID: 2847300398951768476}
   - component: {fileID: 1460226826315470411}
+  - component: {fileID: 4551112921806820225}
   - component: {fileID: 2112232705772764416}
   - component: {fileID: 2519053648526387126}
   m_Layer: 0
@@ -360,8 +361,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.81
-  m_Speed: 6
-  m_Acceleration: 6
+  m_Speed: 4
+  m_Acceleration: 3
   avoidancePriority: 10
   m_AngularSpeed: 120
   m_StoppingDistance: 0.5
@@ -397,13 +398,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchor: {fileID: 6798918210965959563}
-  maxDistanceToAtack: 0.5
+  maxDistanceToAtack: 1
+  entityAtack: {fileID: 4551112921806820225}
   maxDistanceToReact: 7
   gun: {fileID: 0}
   maxDistanceToFire: 0
-  minDistanceToDespawn: 20
+  minDistanceToDespawn: 25
   target: {fileID: 0}
   fearObjects: []
+--- !u!114 &4551112921806820225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402985234880306013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7882810af67dc741a6fcaa44056d412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 1.5
+  attackDamage: 5
+  attackDelay: 2
+  attackSound: {fileID: 8300000, guid: 361a2c020e03dac4ba44d3146b6118a5, type: 3}
+  targetsLayers:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!50 &2112232705772764416
 Rigidbody2D:
   serializedVersion: 4

@@ -8,7 +8,7 @@ public class EntityAtack : MonoBehaviour
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private int attackDamage = 10;
     [SerializeField] private float attackDelay = 1f;
-    [SerializeField] private AudioClip biteSound;
+    [SerializeField] private AudioClip attackSound;
     [SerializeField] private LayerMask targetsLayers;
     private AudioSource audioSource;
     private bool canAttack = true;
@@ -18,25 +18,36 @@ public class EntityAtack : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void CheckForAtack()
+    public void MultipleTargetsAtack()
     {
-        Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, 5f, targetsLayers);
-        if (targets.Length != 0)
+        Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, attackRange, targetsLayers);
+        if (targets.Length != 0 && canAttack)
         {
-            if (canAttack && Vector2.Distance(transform.position, targets[0].transform.position) <= attackRange)
-                Atack(targets[0].gameObject);
+            foreach (Collider2D target in targets)
+                if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
+                {
+                    Atack(target.gameObject);
+                    if (attackSound) 
+                    {
+                        audioSource.PlayOneShot(attackSound);
+                        audioSource.transform.position = transform.position;
+                        audioSource.transform.rotation = transform.rotation;
+                    }
+                    
+                }
+
+            Invoke("ResetAttack", attackDelay);
         }
+            
+
     }
 
-    public void Atack(GameObject target)
+    private void Atack(GameObject target)
     {
-        canAttack = false;
         if (target.GetComponent<HealthSystem>())
             target.GetComponent<HealthSystem>().TakeDamage(attackDamage);
-        Invoke("ResetAttack", attackDelay);
-        audioSource.PlayOneShot(biteSound);
-        audioSource.transform.position = transform.position;
-        audioSource.transform.rotation = transform.rotation;
+ 
+        canAttack = false;
     }
 
 
@@ -44,4 +55,6 @@ public class EntityAtack : MonoBehaviour
     {
         canAttack = true;
     }
+    public bool CanAttack() => canAttack;
+    
 }

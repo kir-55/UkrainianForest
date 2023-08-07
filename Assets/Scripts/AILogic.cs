@@ -10,29 +10,39 @@ public class AILogic : MonoBehaviour
 {
     [SerializeField, Tooltip("Should have child 'atack point'")] private Transform anchor;
     [SerializeField] private float maxDistanceToAtack;
+    [SerializeField, Tooltip("Attach if can attack")] private EntityAtack entityAtack;
     [SerializeField] private float maxDistanceToReact;
     [SerializeField, Tooltip("Attach if can fire")] private Gun gun;
     [SerializeField] private float maxDistanceToFire;
     [SerializeField] private float minDistanceToDespawn;
+
+    private bool movementActivity, atackActiviy, gunActivity;
+    
 
     [SerializeField] private GameObject target;
 
     [SerializeField, Tooltip("Something that the AI is afraid of")] private Transform[] fearObjects;
 
     private AITransform aiTransform;
-    private bool activitiesTaken;
 
     private void Start()
     {
+        movementActivity = atackActiviy = gunActivity = false;
         aiTransform = GetComponent<AITransform>();
     }
 
     private void Update()
     {
         float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-        //if any of the activities isn't active
-        if(!activitiesTaken)
+        //if any of the activities isn't taken ////must be completed
+        if ((!movementActivity && !atackActiviy && !gunActivity) ||
+           (movementActivity && aiTransform.IsAgentArrived() && !atackActiviy && !gunActivity) ||
+           (!movementActivity && atackActiviy  && entityAtack.CanAttack() && !gunActivity))
+        {
+            movementActivity = atackActiviy = gunActivity = false;
             DecideToActivity(distanceToTarget);
+        }
+            
     }
 
     private void DecideToActivity(float distanceToTarget)
@@ -49,13 +59,31 @@ public class AILogic : MonoBehaviour
         else if (seeFearObjects.Count > 0)
         {
             float averageAngle = CalculateAverageDirection(seeFearObjects);
-            if(averageAngle != 0)
+            if (averageAngle != 0)
                 aiTransform.RotateTo(averageAngle);
-                
 
+            movementActivity = true;
             aiTransform.MoveTo(transform.up * 5);
+        } 
+        else if (distanceToTarget <= maxDistanceToAtack && seeTarget && entityAtack)
+        {
+            //attackp
+            atackActiviy = true;
+            entityAtack.MultipleTargetsAtack();
+            
         }
-            //attack
+        if (distanceToTarget <= maxDistanceToReact && seeTarget)
+        {
+            movementActivity = true;
+            aiTransform.RotateTo(target.transform.position, 90);
+            aiTransform.MoveTo(target.transform.position);
+        }
+
+
+
+
+
+        //attack
         //else if (distanceToTarget)
     }
     private float CalculateAverageDirection(List<Transform> positions)
@@ -68,7 +96,7 @@ public class AILogic : MonoBehaviour
         foreach (Transform position in positions)
         {
             // Calculate the direction vector from the zombie to each dog.
-            Vector3 targetDirection =  transform.position - position.position;
+            Vector3 targetDirection = transform.position - position.position;
             float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
             
             // Add the direction to the total direction vector.
@@ -97,7 +125,6 @@ public class AILogic : MonoBehaviour
             if (probablyTarget.tag == target.tag && probablyTarget.name == target.name)
                 return target;
         }    
-
 
         return null;
     }    
