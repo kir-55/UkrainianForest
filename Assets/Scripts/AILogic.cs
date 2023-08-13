@@ -13,13 +13,13 @@ public class AILogic : MonoBehaviour
     [SerializeField, Tooltip("Attach if can attack")] private EntityAtack entityAtack;
     [SerializeField] private float maxDistanceToReact;
     [SerializeField, Tooltip("Attach if can fire")] private Gun gun;
-    [SerializeField] private float maxDistanceToFire;
+    [SerializeField] private float maxDistanceToFire, fireDelay = 1;
     [SerializeField] private float minDistanceToDespawn;
 
-    private bool movementActivity, atackActiviy, gunActivity;
+    private bool movementActivity, atackActivity, gunActivity;
     
 
-    [SerializeField] private GameObject target;
+    public GameObject target;
 
     [SerializeField, Tooltip("Something that the AI is afraid of")] private Transform[] fearObjects;
 
@@ -27,7 +27,7 @@ public class AILogic : MonoBehaviour
 
     private void Start()
     {
-        movementActivity = atackActiviy = gunActivity = false;
+        movementActivity = atackActivity = gunActivity = false;
         aiTransform = GetComponent<AITransform>();
     }
 
@@ -35,14 +35,19 @@ public class AILogic : MonoBehaviour
     {
         float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
         //if any of the activities isn't taken ////must be completed
-        if ((!movementActivity && !atackActiviy && !gunActivity) ||
-           (movementActivity && aiTransform.IsAgentArrived() && !atackActiviy && !gunActivity) ||
-           (!movementActivity && atackActiviy  && entityAtack.CanAttack() && !gunActivity))
+        if (!movementActivity || aiTransform.IsAgentArrived())// I  think it better be in corutine 
         {
-            movementActivity = atackActiviy = gunActivity = false;
-            DecideToActivity(distanceToTarget);
+            movementActivity = false;
+            if(!atackActivity || entityAtack.CanAttack())
+            {
+                atackActivity = false;
+                if(!gunActivity) // must be commplited
+                {
+                    //gunActivity = false;
+                    DecideToActivity(distanceToTarget);
+                }
+            }
         }
-            
     }
 
     private void DecideToActivity(float distanceToTarget)
@@ -67,10 +72,15 @@ public class AILogic : MonoBehaviour
         } 
         else if (distanceToTarget <= maxDistanceToAtack && seeTarget && entityAtack)
         {
-            //attackp
-            atackActiviy = true;
+            atackActivity = true;
             entityAtack.MultipleTargetsAtack();
             
+        }
+        else if (distanceToTarget <= maxDistanceToFire && gun && seeTarget)
+        {
+            gunActivity = true;
+            gun.Shoot();
+            Invoke("ResetGunActivity", fireDelay);
         }
         if (distanceToTarget <= maxDistanceToReact && seeTarget)
         {
@@ -85,6 +95,10 @@ public class AILogic : MonoBehaviour
 
         //attack
         //else if (distanceToTarget)
+    }
+    private void ResetGunActivity()
+    {
+        gunActivity = false;
     }
     private float CalculateAverageDirection(List<Transform> positions)
     {

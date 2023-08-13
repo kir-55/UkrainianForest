@@ -8,25 +8,22 @@ public class Gun : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject shotSound;
     [SerializeField] private bool vibrations;
+    [SerializeField] private bool IsPlayer;
     [SerializeField] private CameraController cameraController;
     GameControler gameControler;
 
     private void Awake()
     {
-        cameraController = transform.parent.parent.GetComponent<CurrentItem>().GetCameraController();
-        gameControler = new GameControler();
-        gameControler.Gamepad.Use.performed += ctx => Shoot();
+        if (IsPlayer)
+        {
+            cameraController = transform.parent.parent.GetComponent<CurrentItem>().GetCameraController();
+            gameControler = new GameControler();
+            gameControler.Gamepad.Use.performed += ctx => Shoot();
+        }
+        
     }
 
-    private void Update()
-    {
-        // if(Input.GetMouseButtonDown(0))
-        // {
-        //     Shoot();
-        // }
-    }
-
-    private void Shoot()
+    public void Shoot()
     {
         Instantiate(bullet,shotDir.position,shotDir.rotation);
         Instantiate(shotSound,shotDir.position,shotDir.rotation);
@@ -47,11 +44,13 @@ public class Gun : MonoBehaviour
     }
     void OnEnable()
     {
-        gameControler.Gamepad.Enable();
+        if (gameControler != null)
+            gameControler.Gamepad.Enable();
     }
 
     void OnDisable()
     {
-        gameControler.Gamepad.Disable();
+        if (gameControler != null)
+            gameControler.Gamepad.Disable();
     }
 }

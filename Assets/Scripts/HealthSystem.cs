@@ -23,7 +23,7 @@ public class HealthSystem : MonoBehaviour
 
     private float currentHealth;
 
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private Color defaultColor;
 
     [System.Serializable]
@@ -41,7 +41,6 @@ public class HealthSystem : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        spriteRenderer = GetComponent<SpriteRenderer>();
         defaultColor = spriteRenderer.color;
     }
 
@@ -60,8 +59,9 @@ public class HealthSystem : MonoBehaviour
         float takenDamage = 0;
         if (shields != null && shields.Count > 0)
         {
-            foreach (Shield shield in shields)
+            for (int i = 0; i < shields.Count; i++)
             {
+                Shield shield = shields[i];
                 float probablyTakenDamage = startDamage * (shield.DamageResistanceInPercents / 100);
                 if(startDamage - (takenDamage + probablyTakenDamage) <= 0)
                     probablyTakenDamage = startDamage - takenDamage;
@@ -95,8 +95,12 @@ public class HealthSystem : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (shields != null && shields.Count > 0)
-            currentHealth -= ShieldCalculation(damage);
+        if (shields != null && shields.Count > 0) 
+        {
+            float damageAfterSheld = ShieldCalculation(damage);
+            currentHealth -= damageAfterSheld;
+            print("damage: " + damage + " after sheld: " + damageAfterSheld + "shields amount: " + shields.Count);
+        }    
         else
             currentHealth -= damage;
 
@@ -127,11 +131,18 @@ public class HealthSystem : MonoBehaviour
             int framesAmount = injureLevelsVisualControl.GetFramesAmount() + 1;
             float healthPerInjureLevel = maxHealth / framesAmount; //5.(3)
             float expectedHealthLevel = (framesAmount - currentInjureLevel) * healthPerInjureLevel;// (3-i) * 5.(3) = 16 - 5.(3)i
+            //print("current injure level: " + currentInjureLevel);
+            //print("frames amount: " + framesAmount);
+            //print("health Per Injure Level: " + healthPerInjureLevel);
+            //print("expected Health Level to change animaton: " + expectedHealthLevel);
+            //print("heath: " + currentHealth);
+
+
 
             if (currentHealth < expectedHealthLevel)
-                injureLevelsVisualControl.SetFrame(currentInjureLevel - 3);
-            else if (currentHealth - expectedHealthLevel < 0)
                 injureLevelsVisualControl.SetFrame(currentInjureLevel - 1);
+            else if (currentHealth - expectedHealthLevel < 0)
+                injureLevelsVisualControl.SetFrame(currentInjureLevel - 3);
         }
 
         if (healthCountText)
