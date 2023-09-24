@@ -48,4 +48,5 @@ MonoBehaviour:
   bullet: {fileID: 5515246349404981747, guid: 1513f690769fcb446aff5fbc5502d4f4, type: 3}
   shotSound: {fileID: 6402309088809488788, guid: 466a0a5b1dd338c4fb80b49455a6d82b, type: 3}
   vibrations: 1
+  IsPlayer: 1
   cameraController: {fileID: 0}

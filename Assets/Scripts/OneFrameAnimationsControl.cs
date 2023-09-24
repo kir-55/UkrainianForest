@@ -43,7 +43,6 @@ public class OneFrameAnimationsControl : MonoBehaviour
             {
                 image.color = new Color(1, 1, 1, 1);
                 image.sprite = animationsFrames[frameIndex];
-                Debug.Log("dddddddd");
             }  
             else if (spriteRenderer != null)
             {

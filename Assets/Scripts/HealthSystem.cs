@@ -14,39 +14,36 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private OneFrameAnimationsControl injureLevelsVisualControl;
     [SerializeField] private string healTag;
     [SerializeField] private bool vibration;
-    [SerializeField] private bool destroyOnDie = true; 
+    [SerializeField] private bool destroyOnDie = true;
+    [SerializeField] private GameObject toDestroy;
     [SerializeField] private bool loadSceneOnDie;
     [SerializeField] private int sceneIndex;
     [SerializeField] private float maxHealth = 1f;
+    [SerializeField] private List<Shield> shields;
 
     private float currentHealth;
-    private bool shield;
-    private float damageResistance, shieldEndTime;
 
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private Color defaultColor;
+
+    [System.Serializable]
+    public class Shield
+    {
+        [Range(0f, 100f)] public float DamageResistanceInPercents;
+        public bool BreakAfterDamage;
+        public float Damage;
+        public float DamageRestToBreak;
+        public bool BreackAfterTime;
+        public float DurabilityTime;
+        public float StartTime;
+    }
 
     private void Start()
     {
         currentHealth = maxHealth;
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
         defaultColor = spriteRenderer.color;
     }
 
-    private void Update()
-    {
-        if (shield && Time.time >= shieldEndTime)
-            shield = false;
-        
-    }
-
-    public void CreateShield(int resistance, float duration)
-    {
-        shield = true;
-        damageResistance = resistance;
-        shieldEndTime = Time.time + duration;
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -56,11 +53,54 @@ public class HealthSystem : MonoBehaviour
             TakeDamage(-other.gameObject.transform.localScale.x);
         }
     }
+    
+    private float ShieldCalculation(float startDamage)
+    {
+        float takenDamage = 0;
+        if (shields != null && shields.Count > 0)
+        {
+            for (int i = 0; i < shields.Count; i++)
+            {
+                Shield shield = shields[i];
+                float probablyTakenDamage = startDamage * (shield.DamageResistanceInPercents / 100);
+                if(startDamage - (takenDamage + probablyTakenDamage) <= 0)
+                    probablyTakenDamage = startDamage - takenDamage;
+
+                
+                if((shield.BreackAfterTime && shield.DurabilityTime <= (Time.time - shield.StartTime))
+                || (shield.BreakAfterDamage && shield.DamageRestToBreak <= 0))
+                {
+                    shields.Remove(shield);
+                    continue;
+                }
+                else if(shield.BreakAfterDamage && shield.DamageRestToBreak <= probablyTakenDamage)
+                {
+                    takenDamage += shield.DamageRestToBreak;
+                    shields.Remove(shield);
+                    continue;
+                }
+                else
+                {
+                    takenDamage += probablyTakenDamage;
+                    shield.DamageRestToBreak -= probablyTakenDamage;
+                }
+
+                if (probablyTakenDamage <= 0)
+                    break;
+            }
+        }
+        float restDamage = startDamage - takenDamage;
+        return restDamage;
+    }
 
     public void TakeDamage(float damage)
     {
-        if (shield)
-            currentHealth -= damage - damage / 100 * damageResistance;
+        if (shields != null && shields.Count > 0) 
+        {
+            float damageAfterSheld = ShieldCalculation(damage);
+            currentHealth -= damageAfterSheld;
+            print("damage: " + damage + " after sheld: " + damageAfterSheld + "shields amount: " + shields.Count);
+        }    
         else
             currentHealth -= damage;
 
@@ -72,7 +112,7 @@ public class HealthSystem : MonoBehaviour
         if (currentHealth <= 0f)
         {
             if(destroyOnDie)
-                Destroy(gameObject);
+                Destroy(toDestroy);
             else if(loadSceneOnDie)
                 SceneManager.LoadScene(sceneIndex);
             return;
@@ -87,21 +127,27 @@ public class HealthSystem : MonoBehaviour
 
         if (injureLevelsVisualControl)
         {
-            int currentInjureLevel = injureLevelsVisualControl.GetCurrentFrameIndex();
-            if (currentHealth > (injureLevelsVisualControl.GetFramesAmount() - (currentInjureLevel + 1)) * (maxHealth / injureLevelsVisualControl.GetFramesAmount() + 1))// first level
+            int currentInjureLevel = injureLevelsVisualControl.GetCurrentFrameIndex() + 2;
+            int framesAmount = injureLevelsVisualControl.GetFramesAmount() + 1;
+            float healthPerInjureLevel = maxHealth / framesAmount; //5.(3)
+            float expectedHealthLevel = (framesAmount - currentInjureLevel) * healthPerInjureLevel;// (3-i) * 5.(3) = 16 - 5.(3)i
+            //print("current injure level: " + currentInjureLevel);
+            //print("frames amount: " + framesAmount);
+            //print("health Per Injure Level: " + healthPerInjureLevel);
+            //print("expected Health Level to change animaton: " + expectedHealthLevel);
+            //print("heath: " + currentHealth);
+
+
+
+            if (currentHealth < expectedHealthLevel)
                 injureLevelsVisualControl.SetFrame(currentInjureLevel - 1);
-            else if (currentHealth < (injureLevelsVisualControl.GetFramesAmount() - (currentInjureLevel + 1)) * (maxHealth / injureLevelsVisualControl.GetFramesAmount() + 1))
-                injureLevelsVisualControl.SetFrame(currentInjureLevel + 1);
-
+            else if (currentHealth - expectedHealthLevel < 0)
+                injureLevelsVisualControl.SetFrame(currentInjureLevel - 3);
         }
-            
-
-
 
         if (healthCountText)
             healthCountText.text = "HP: " + currentHealth.ToString();
 
-        
     }
 
     private IEnumerator SetColor(float duration, Color color)

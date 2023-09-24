@@ -3,7 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField]private float speed,damage;
-    [SerializeField]private GameObject particle;
+    [SerializeField]private GameObject normalParticle, bloodParticle;
     
     private void Update()
     {
@@ -11,9 +11,13 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<HealthSystem>())
+        if (collision.gameObject.GetComponent<HealthSystem>())
+        {
             collision.gameObject.GetComponent<HealthSystem>().TakeDamage(damage);
-        Instantiate(particle,transform.position,transform.rotation);
+            Instantiate(bloodParticle, transform.position, transform.rotation);
+        }    
+        else
+            Instantiate(normalParticle, transform.position,transform.rotation);
         Destroy(gameObject);
     }
 }
