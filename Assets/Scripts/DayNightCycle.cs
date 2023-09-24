@@ -17,8 +17,8 @@ public class DayNightCycle : MonoBehaviour
     private float startTime;
 
     public delegate void TimeAction();
-    public static event TimeAction OnDay;
-    public static event TimeAction OnNight;
+    public event TimeAction OnDay;
+    public event TimeAction OnNight;
 
     private bool isDay = true;
     private void Start()

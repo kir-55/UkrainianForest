@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float mobsSpawnDelay;
     [SerializeField] private float distanceFromPlayer;
     [SerializeField] private GameObject[] mobs;
+    [SerializeField] private DayNightCycle dayNightCycle;
     //[SerializeField] private DayNightCycle dayNightCycle;
     /// <summary>
     /// public static event TimeAction OnDay;
@@ -17,8 +18,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        DayNightCycle.OnDay += IsDay;
-        DayNightCycle.OnNight += IsNight;
+        dayNightCycle.OnDay += IsDay;
+        dayNightCycle.OnNight += IsNight;
     }
     private void IsDay()
     {
@@ -61,7 +62,7 @@ public class EnemySpawner : MonoBehaviour
     private float Square(float num) => num * num;
     private void OnDisable()
     {
-        DayNightCycle.OnDay -= IsDay;
-        DayNightCycle.OnNight -= IsNight;
+        dayNightCycle.OnDay -= IsDay;
+        dayNightCycle.OnNight -= IsNight;
     }
 }

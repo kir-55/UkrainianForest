@@ -15520,6 +15520,7 @@ MonoBehaviour:
   - {fileID: 4402985234880306013, guid: 5cca0c81f5a38654ba0ad418f38f8797, type: 3}
   - {fileID: 4402985234880306013, guid: 53e2c9303b554a84c99b917825580331, type: 3}
   - {fileID: 4402985234880306013, guid: 7cc2066825b97a64a83826dbb64407da, type: 3}
+  dayNightCycle: {fileID: 1706203142}
 --- !u!1 &730219731
 GameObject:
   m_ObjectHideFlags: 0
