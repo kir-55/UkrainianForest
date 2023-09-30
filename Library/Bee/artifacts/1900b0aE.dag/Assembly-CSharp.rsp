@@ -383,6 +383,7 @@
 "Assets/Scripts/Box.cs"
 "Assets/Scripts/Bullet.cs"
 "Assets/Scripts/CameraController.cs"
+"Assets/Scripts/ChunkLoader.cs"
 "Assets/Scripts/CollectibleObject.cs"
 "Assets/Scripts/CollectingObjects.cs"
 "Assets/Scripts/CraftingMenu.cs"
@@ -403,6 +404,7 @@
 "Assets/Scripts/OneFrameAnimationsControl.cs"
 "Assets/Scripts/PlayerMove.cs"
 "Assets/Scripts/RecipeVisualiser.cs"
+"Assets/Scripts/TerrainGenerator.cs"
 "Assets/Scripts/Workbench.cs"
 -langversion:9.0
 
