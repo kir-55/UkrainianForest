@@ -6,7 +6,8 @@ using UnityEngine.Tilemaps;
 public class CurrentItem : MonoBehaviour
 {
     [SerializeField] private ItemsInfo itemsInfo;
-    ItemsInfo.ItemTupeInfos itemInfos;
+    [SerializeField] private NavMeshUpdater navMeshUpdater;
+    Item itemInfos;
     [SerializeField] private CraftingMenu craftingMenu;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private SpriteRenderer leftHandSpriteRenderer;
@@ -16,7 +17,11 @@ public class CurrentItem : MonoBehaviour
     [SerializeField] private Inventory inventory;
     [SerializeField] private LayerMask blockObjectsLayer;
     [SerializeField] private NavMeshSurface navMeshSurface;
+    [SerializeField] private Tile[] unbreakableTiles;
+    [SerializeField] private GameObject[] unbreakableBlocks;
+
     public BlockInfos[] blocksInfos;
+    
     private int rightHandItemTupe = -1, leftHandItemTupe = -1;
     private GameControler gameControler;
 
@@ -24,9 +29,9 @@ public class CurrentItem : MonoBehaviour
     public class BlockInfos
     {
         public TileBase Tile;
-        public GameObject blockObject;
-        public GameObject DropCollectableObject;
-        public int DropCollectableObjectAmount;
+        public GameObject BlockObject;
+        public Item Item;
+        public int Amount;
     }
 
     private void Awake()
@@ -39,7 +44,7 @@ public class CurrentItem : MonoBehaviour
     {
         if(rightHandItemTupe > -1)
         {
-            itemInfos = itemsInfo.itemTupesInfos[rightHandItemTupe - 1];
+            itemInfos = itemsInfo.itemInfos[rightHandItemTupe - 1];
             Vector3 blockPosition = dropPoint.transform.position;
             Vector3Int tilePosition = tileMap.WorldToCell(blockPosition);
             Collider2D blockColider = Physics2D.OverlapCircle(blockPosition, 0.1f, blockObjectsLayer);
@@ -54,7 +59,7 @@ public class CurrentItem : MonoBehaviour
                     else
                         return false;
                     inventory.RemoveItem(rightHandItemTupe, inventory.GetSlots());
-                    Invoke("UpdateMesh", 0.1f);
+                    
                 }
             }
         }
@@ -70,17 +75,23 @@ public class CurrentItem : MonoBehaviour
         GameObject blockObject = (blockColider ? blockColider.gameObject : null);
         TileBase blockTileToFind = null;
         TileBase tileToFind = null;
-        GameObject blockObjectToFind = null;
-
+        //GameObject blockObjectToFind = null;
         if (blockTileMap.GetTile(tilePosition))
         {
+            blockTileToFind = blockTileMap.GetTile(tilePosition);
+            foreach (Tile unbreakableTile in unbreakableTiles)
+                if (unbreakableTile != null && unbreakableTile == blockTileToFind)
+                    return;
             blockTileToFind = blockTileMap.GetTile(tilePosition);
             blockTileMap.SetTile(tilePosition, null);
         }
         else if(blockObject)
         {
+            foreach (GameObject unbreakableBlock in unbreakableBlocks)
+                if (unbreakableBlock != null && unbreakableBlock == blockObject)
+                    return;
             Destroy(blockObject);
-            blockObjectToFind = blockObject;
+            
         }
         else if (tileMap.GetTile(tilePosition))
         {
@@ -90,24 +101,20 @@ public class CurrentItem : MonoBehaviour
 
         foreach (BlockInfos block in blocksInfos)
         {
-            if ((blockTileToFind && block.Tile == blockTileToFind) || (blockObjectToFind && block.blockObject && blockObjectToFind.name == string.Format("{0}(Clone)", block.blockObject.name)) || (tileToFind && block.Tile == tileToFind))
+            if ((blockTileToFind && block.Tile == blockTileToFind) || (blockObject && block.BlockObject && blockObject.name == string.Format("{0}(Clone)", block.BlockObject.name)) || (tileToFind && block.Tile == tileToFind))
             {
-                GameObject DroppedItem = Instantiate(block.DropCollectableObject, blockPosition, Quaternion.identity);
-                DroppedItem.GetComponent<CollectibleObject>().itemAmount = block.DropCollectableObjectAmount;
+                GameObject DroppedItem = Instantiate(itemsInfo.ItemSample, blockPosition, Quaternion.identity);
+                DroppedItem.GetComponent<SpriteRenderer>().sprite = block.Item.icon;
+                DroppedItem.GetComponent<CollectibleObject>().ItemTupe = block.Item.typeNumber ;
+                DroppedItem.GetComponent<CollectibleObject>().itemAmount = block.Amount;
             }
         }
-        Invoke("UpdateMesh", 0.1f);
+
+        //Invoke("UpdateMesh", 0.1f);
+        navMeshUpdater.changes += 100;
     }
 
-    public void UpdateMesh()
-    {
-
-        if (navMeshSurface.navMeshData != null)
-            navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
-        else
-            navMeshSurface.BuildNavMesh();
-        
-    }
+    
 
     public void SetCurrentItem(int itemTupe, bool isRightHand = true)
     {
@@ -124,7 +131,7 @@ public class CurrentItem : MonoBehaviour
 
         if (itemTupe > 0) 
         {
-            itemInfos = itemsInfo.itemTupesInfos[itemTupe-1];
+            itemInfos = itemsInfo.itemInfos[itemTupe-1];
             if(itemInfos.iconInHand || (itemInfos.icon && !itemInfos.canBeUsed))
             {
                 if(itemInfos.iconInHand)

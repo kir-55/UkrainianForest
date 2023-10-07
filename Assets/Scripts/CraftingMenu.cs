@@ -85,9 +85,11 @@ public class CraftingMenu : MonoBehaviour
                     
 
                 foreach (Items product in products)
-                    if (itemsInfo.itemTupesInfos.Length > 0)
+                    if (itemsInfo.itemInfos.Length > 0)
                     {
-                        GameObject droppedProduct = Instantiate(itemsInfo.itemTupesInfos[product.tupe - 1].prefab, playerDropPoint.transform.position, Quaternion.identity);
+                        GameObject droppedProduct = Instantiate(itemsInfo.ItemSample, playerDropPoint.transform.position, Quaternion.identity);
+                        droppedProduct.GetComponent<SpriteRenderer>().sprite = itemsInfo.itemInfos[product.tupe - 1].icon;
+                        droppedProduct.GetComponent<CollectibleObject>().ItemTupe = product.tupe;
                         droppedProduct.GetComponent<CollectibleObject>().itemAmount = product.amount;
                     }
             }

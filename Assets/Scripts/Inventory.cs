@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static ItemsInfo;
 
 public class Inventory : MonoBehaviour
 {
@@ -36,11 +34,13 @@ public class Inventory : MonoBehaviour
         {
             int currentItemTupe = rightHandSlots[rightHandCurrentSlotIndex].ItemType;
             //Vector3 ThrowPos = new Vector3(transform.position.x + Random.Range(-0.4f, 0.4f), transform.position.y + Random.Range(1f, 1.5f), 0);
-            foreach (ItemTupeInfos currentSlot in ItemsInfo.itemTupesInfos)
+            foreach (Item currentSlot in ItemsInfo.itemInfos)
             {
                 if(currentSlot.typeNumber == currentItemTupe && RemoveItem(currentItemTupe, rightHandSlots))
                 {
-                    Instantiate(ItemsInfo.itemTupesInfos[currentItemTupe - 1].prefab, dropPoint.position, transform.rotation);
+                    GameObject inst = Instantiate(ItemsInfo.ItemSample, dropPoint.position, transform.rotation);
+                    inst.GetComponent<SpriteRenderer>().sprite = ItemsInfo.itemInfos[currentItemTupe - 1].icon;
+                    inst.GetComponent<CollectibleObject>().ItemTupe = ItemsInfo.itemInfos[currentItemTupe - 1].typeNumber;
                     return true;
                 }
             }            
@@ -65,7 +65,7 @@ public class Inventory : MonoBehaviour
             rightHandItemAmount = rightHandSlots[rightHandCurrentSlotIndex].GetItemAmount();
             if (leftHandItemAmount > 0)
             {
-                rightHandSlots[rightHandCurrentSlotIndex].RewriteInventorySlot(leftHandItemTupe, ItemsInfo.itemTupesInfos[leftHandItemTupe - 1].icon, leftHandItemAmount);
+                rightHandSlots[rightHandCurrentSlotIndex].RewriteInventorySlot(leftHandItemTupe, ItemsInfo.itemInfos[leftHandItemTupe - 1].icon, leftHandItemAmount);
                 currentItem.SetCurrentItem(rightHandSlots[rightHandCurrentSlotIndex].ItemType);
             }
                 
@@ -78,7 +78,7 @@ public class Inventory : MonoBehaviour
     
         if (leftHandCurrentSlotIndex > -1 && leftHandSlots.Count > leftHandCurrentSlotIndex && leftHandSlots[leftHandCurrentSlotIndex] && rightHandItemAmount > 0)
         {
-            leftHandSlots[leftHandCurrentSlotIndex].RewriteInventorySlot(rightHandItemTupe, ItemsInfo.itemTupesInfos[rightHandItemTupe - 1].icon, rightHandItemAmount);
+            leftHandSlots[leftHandCurrentSlotIndex].RewriteInventorySlot(rightHandItemTupe, ItemsInfo.itemInfos[rightHandItemTupe - 1].icon, rightHandItemAmount);
             currentItem.SetCurrentItem(leftHandSlots[leftHandCurrentSlotIndex].ItemType, false);
         }
         else if(rightHandItemAmount > 0) 

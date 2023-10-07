@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
-using static TerrainGenerator;
 
 public class TerrainGenerator : MonoBehaviour
 {
+    [SerializeField] private NavMeshUpdater navMeshUpdater;
     [SerializeField] private Tilemap[] terrainTilemaps;
     [SerializeField] private Vector2Int mapSize;
     [SerializeField] private float scale = 10f;
@@ -14,7 +13,7 @@ public class TerrainGenerator : MonoBehaviour
     [SerializeField] private TerrainDecoration[] terrainDecorations;
     [SerializeField] private int chunkSize = 5;
 
-    [SerializeField] private List<Vector2Int> loadedChunks;
+    public List<Vector2Int> loadedChunks;
 
     public float islandRadius = 30f; // Adjust the size of the island
     public float maxHeight = 1.0f;   // Adjust the maximum height of the terrain
@@ -50,7 +49,7 @@ public class TerrainGenerator : MonoBehaviour
     public void UnLoadChunks(Vector3Int pos, int radius = 25)
     {
         pos = terrainTilemaps[0].WorldToCell(pos);
-        pos = new Vector3Int(pos.x - pos.x % chunkSize - 5, pos.y - pos.y % chunkSize - 5);
+        pos = new Vector3Int(pos.x - pos.x % chunkSize, pos.y - pos.y % chunkSize);
         List<Vector2Int> loadedChunks1 = loadedChunks;
             foreach (Vector2Int chunkPos in loadedChunks1.ToArray())
                 if (Vector2.Distance(chunkPos, new Vector3(pos.x, pos.y)) >= radius)
@@ -71,14 +70,14 @@ public class TerrainGenerator : MonoBehaviour
     {
         Vector2 center = new Vector2(mapSize.x / 2, mapSize.y /2);
         chunkPos = terrainTilemaps[0].WorldToCell(chunkPos);
-        chunkPos = new Vector3Int(chunkPos.x - chunkPos.x % 5 - 3, chunkPos.y - chunkPos.y % 5 - 3);
+        chunkPos = new Vector3Int(chunkPos.x - chunkPos.x % chunkSize, chunkPos.y - chunkPos.y % chunkSize);
 
         if (!IsLoaded(new Vector2Int(chunkPos.x, chunkPos.y)))
         {
+            loadedChunks.Add(new Vector2Int(chunkPos.x, chunkPos.y));
             for (int x = 0; x < chunkSize; x++)
-            {
                 for (int y = 0; y < chunkSize; y++)
-                {
+                {                
                     Vector3Int position = new Vector3Int(chunkPos.x + x, chunkPos.y + y);
 
                     float xCoord = (1000 - (float)position.x) / mapSize.x * scale;
@@ -109,12 +108,10 @@ public class TerrainGenerator : MonoBehaviour
                             break;
                         }
                     }
-
-                    
-                    
                 }
-            }
-            loadedChunks.Add(new Vector2Int(chunkPos.x, chunkPos.y));
+            
+            
+            //navMeshUpdater.changes
         }
     }
 }

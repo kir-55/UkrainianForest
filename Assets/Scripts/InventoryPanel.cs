@@ -16,8 +16,7 @@ public class InventoryPanel : MonoBehaviour
             InventorySlot physicSlot = (isRightHand? RightHand: LeftHand).transform.GetChild(i).GetChild(1).GetComponent<InventorySlot>();
             if (physicSlot.ItemType == 0)
             {
-                Sprite itemIcon = itemsInfo.itemTupesInfos[itemTupe - 1].icon;
-                print("adding: " + physicSlot.transform.parent.parent.name + " hand: " + isRightHand);
+                Sprite itemIcon = itemsInfo.itemInfos[itemTupe - 1].icon;
                 physicSlot = physicSlot.RewriteInventorySlot(itemTupe, itemIcon, itemAmount);
                 return physicSlot;
             }

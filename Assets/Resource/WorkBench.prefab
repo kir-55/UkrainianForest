@@ -48,24 +48,26 @@ MonoBehaviour:
   craftingMenu: {fileID: 0}
   recipes:
   - Ingridients:
-    - tupe: 7
+    - tupe: 15
       amount: 3
     Products:
-    - tupe: 10
+    - tupe: 14
       amount: 6
   - Ingridients:
-    - tupe: 10
+    - tupe: 14
       amount: 6
     Products:
-    - tupe: 7
+    - tupe: 15
       amount: 3
   - Ingridients:
-    - tupe: 23
+    - tupe: 19
       amount: 2
-    - tupe: 24
+    - tupe: 13
       amount: 4
+    - tupe: 14
+      amount: 3
     Products:
-    - tupe: 25
+    - tupe: 22
       amount: 1
 --- !u!58 &6859923300894335718
 CircleCollider2D:

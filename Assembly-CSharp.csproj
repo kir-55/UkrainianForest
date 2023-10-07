@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\ItemsInfo.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\AITransform.cs" />
+    <Compile Include="Assets\Scripts\TerrainGenerator.cs" />
     <Compile Include="Assets\Scripts\CollectibleObject.cs" />
     <Compile Include="Assets\Scripts\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\CollectingObjects.cs" />
@@ -77,13 +78,15 @@
     <Compile Include="Assets\Scripts\GameControler.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\AILogic.cs" />
+    <Compile Include="Assets\Scripts\ChunkLoader.cs" />
     <Compile Include="Assets\Scripts\Workbench.cs" />
     <Compile Include="Assets\Scripts\CraftingMenu.cs" />
     <Compile Include="Assets\Scripts\EntityAtack.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\ChunkLoader.cs" />
-    <Compile Include="Assets\Scripts\TerrainGenerator.cs" />
+    <Compile Include="Assets\ScriptableObjects\Item.cs" />
+    <Compile Include="Assets\Scripts\NavMeshUpdater.cs" />
+    <Compile Include="Assets\Scripts\FPSCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

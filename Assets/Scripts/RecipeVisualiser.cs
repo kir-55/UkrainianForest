@@ -19,7 +19,7 @@ public class RecipeVisualiser : MonoBehaviour
             foreach (Items Ingrigient in Ingridients)
             {
                 GameObject ItemVisualisation = Instantiate(ItemVisualisationPrefab, transform.GetChild(0));
-                ItemVisualisation.GetComponent<Image>().sprite = ItemsInfo.itemTupesInfos[Ingrigient.tupe - 1].icon;
+                ItemVisualisation.GetComponent<Image>().sprite = ItemsInfo.itemInfos[Ingrigient.tupe - 1].icon;
                 ItemVisualisation.transform.GetChild(0).GetComponent<TMP_Text>().text = Ingrigient.amount.ToString();
 
             }
@@ -32,7 +32,7 @@ public class RecipeVisualiser : MonoBehaviour
             foreach (Items Product in Products)
             {
                 GameObject ItemVisualisation = Instantiate(ItemVisualisationPrefab, transform.GetChild(1));
-                ItemVisualisation.GetComponent<Image>().sprite = ItemsInfo.itemTupesInfos[Product.tupe - 1].icon;
+                ItemVisualisation.GetComponent<Image>().sprite = ItemsInfo.itemInfos[Product.tupe - 1].icon;
                 ItemVisualisation.transform.GetChild(0).GetComponent<TMP_Text>().text = Product.amount.ToString();
 
             }

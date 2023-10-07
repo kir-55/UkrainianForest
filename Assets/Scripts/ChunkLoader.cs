@@ -1,9 +1,10 @@
-using Unity.Mathematics;
 using UnityEngine;
-
+using System.Collections.Generic;
 public class ChunkLoader : MonoBehaviour
 {
+    [SerializeField] private NavMeshUpdater navMeshUpdater;
     [SerializeField] private int chunkSize;
+    [SerializeField] private int unloadRadius;
     [SerializeField] private TerrainGenerator generator;
     [SerializeField] private Transform playerTransform;
     private Vector3Int playerPosRecent, playerPos;
@@ -27,8 +28,12 @@ public class ChunkLoader : MonoBehaviour
         }
     }
 
+
+
     private void LoadChunks()
     {
+        List<Vector2Int> pastChunks = generator.loadedChunks;
+
         generator.LoadChunk(new Vector3Int(playerPos.x, playerPos.y));
         generator.LoadChunk(new Vector3Int(playerPos.x + (int)chunkStep, playerPos.y));
         generator.LoadChunk(new Vector3Int(playerPos.x - (int)chunkStep, playerPos.y));
@@ -40,7 +45,7 @@ public class ChunkLoader : MonoBehaviour
         generator.LoadChunk(new Vector3Int(playerPos.x + (int)chunkStep, playerPos.y - (int)chunkStep));
         generator.LoadChunk(new Vector3Int(playerPos.x - (int)chunkStep, playerPos.y + (int)chunkStep));
 
-        generator.UnLoadChunks(playerPos);
+        //generator.UnLoadChunks(playerPos, unloadRadius * chunkSize);
     }
 }
 
