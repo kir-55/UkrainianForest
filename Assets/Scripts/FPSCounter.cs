@@ -1,9 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class FPSCounter : MonoBehaviour
 {
-    [SerializeField] private Text text;
+    [SerializeField] private TMP_Text text;
     private int fps;
     [SerializeField] private float refreshRate = 1f;
 

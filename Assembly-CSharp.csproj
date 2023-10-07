@@ -57,11 +57,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\RecipeVisualiser.cs" />
+    <Compile Include="Assets\ScriptableObjects\Item.cs" />
     <Compile Include="Assets\Scripts\OneFrameAnimationsControl.cs" />
     <Compile Include="Assets\Scripts\Box.cs" />
     <Compile Include="Assets\Scripts\Goose.cs" />
+    <Compile Include="Assets\Scripts\FPSCounter.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\LoseUIPanel.cs" />
+    <Compile Include="Assets\Scripts\NavMeshUpdater.cs" />
     <Compile Include="Assets\Scripts\CurrentItem.cs" />
     <Compile Include="Assets\Scripts\InventoryPanel.cs" />
     <Compile Include="Assets\Scripts\ItemsInfo.cs" />
@@ -84,9 +87,6 @@
     <Compile Include="Assets\Scripts\EntityAtack.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\ScriptableObjects\Item.cs" />
-    <Compile Include="Assets\Scripts\NavMeshUpdater.cs" />
-    <Compile Include="Assets\Scripts\FPSCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
