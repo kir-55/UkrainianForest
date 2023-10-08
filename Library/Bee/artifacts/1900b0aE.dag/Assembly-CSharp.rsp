@@ -409,6 +409,7 @@
 "Assets/Scripts/RecipeVisualiser.cs"
 "Assets/Scripts/TerrainGenerator.cs"
 "Assets/Scripts/Workbench.cs"
+"Assets/Scripts/WorldLoader.cs"
 -langversion:9.0
 
 /deterministic

@@ -12,6 +12,7 @@ public class TerrainGenerator : MonoBehaviour
     [SerializeField] private TerrainElement[] terrainElements;
     [SerializeField] private TerrainDecoration[] terrainDecorations;
     [SerializeField] private int chunkSize = 5;
+    [SerializeField] private WorldLoader worldLoader;
 
     public List<Vector2Int> loadedChunks;
 
@@ -75,10 +76,14 @@ public class TerrainGenerator : MonoBehaviour
         if (!IsLoaded(new Vector2Int(chunkPos.x, chunkPos.y)))
         {
             loadedChunks.Add(new Vector2Int(chunkPos.x, chunkPos.y));
+
+            
             for (int x = 0; x < chunkSize; x++)
                 for (int y = 0; y < chunkSize; y++)
                 {                
                     Vector3Int position = new Vector3Int(chunkPos.x + x, chunkPos.y + y);
+                    
+
 
                     float xCoord = (1000 - (float)position.x) / mapSize.x * scale;
                     float yCoord = (1000 - (float)position.y) / mapSize.y * scale;
@@ -89,17 +94,31 @@ public class TerrainGenerator : MonoBehaviour
                     foreach (TerrainElement currentElement in terrainElements)
                         if (sample <= currentElement.maxHeight && sample >= currentElement.minHeight)
                         {
+                            
+
                             currentElement.tilemap.SetTile(new Vector3Int(position.x, position.y), currentElement.tile);
                             break;
                         }
-                        //else
-                           // currentElement.tilemap.SetTile(new Vector3Int(position.x, position.y), terrainElements[0].tile);
+                    //else
+                    // currentElement.tilemap.SetTile(new Vector3Int(position.x, position.y), terrainElements[0].tile);
 
-                    foreach (TerrainDecoration currentDecoration in terrainDecorations)
+                    for (int i = 0; i < terrainDecorations.Length; i++)
                     {
+                        TerrainDecoration currentDecoration = terrainDecorations[i];
                         float xCoordDec = (5000 - (float)position.x) / mapSize.x * currentDecoration.scaleDecorations;
                         float yCoordDec = (5000 - (float)position.y) / mapSize.y * currentDecoration.scaleDecorations;
                         float sampleDecorations = Mathf.PerlinNoise(xCoordDec, yCoordDec);
+
+                        for (int j = 0; j < terrainTilemaps.Length; j++) 
+                        {
+                            TileBase t = worldLoader.IsBlock(position.x, position.y, j);
+                            if (t)
+                            {
+                                terrainTilemaps[j].SetTile(new Vector3Int(position.x, position.y), t);
+                                break;
+                            }
+                        }
+                        
 
                         if (sample <= currentDecoration.maxHeight && sample >= currentDecoration.minHeight
                         && sampleDecorations >= currentDecoration.minOccurrenceLevel && sampleDecorations <= currentDecoration.maxOccurrenceLevel)

@@ -19,6 +19,7 @@ public class CurrentItem : MonoBehaviour
     [SerializeField] private NavMeshSurface navMeshSurface;
     [SerializeField] private Tile[] unbreakableTiles;
     [SerializeField] private GameObject[] unbreakableBlocks;
+    [SerializeField] private WorldLoader worldLoader;
 
     public BlockInfos[] blocksInfos;
     
@@ -54,8 +55,11 @@ public class CurrentItem : MonoBehaviour
                 {
                     if (itemInfos.blockPrefab)
                         Instantiate(itemInfos.blockPrefab, dropPoint.transform.position, Quaternion.identity);
-                    else if(itemInfos.tile && (itemInfos.isBlock ? blockTileMap : tileMap).GetTile(tilePosition) != itemInfos.tile)
+                    else if(itemInfos.tile && (itemInfos.isBlock ? blockTileMap : tileMap).GetTile(tilePosition) != itemInfos.tile) 
+                    {
                         (itemInfos.isBlock ? blockTileMap : tileMap).SetTile(tilePosition, itemInfos.tile);
+                        worldLoader.ChangeBlock(itemInfos.tile, (itemInfos.isBlock ? 2 : 1), tilePosition.x, tilePosition.y);
+                    } 
                     else
                         return false;
                     inventory.RemoveItem(rightHandItemTupe, inventory.GetSlots());
@@ -84,6 +88,7 @@ public class CurrentItem : MonoBehaviour
                     return;
             blockTileToFind = blockTileMap.GetTile(tilePosition);
             blockTileMap.SetTile(tilePosition, null);
+            worldLoader.ChangeBlock(null, 2, tilePosition.x, tilePosition.y);
         }
         else if(blockObject)
         {
@@ -97,6 +102,7 @@ public class CurrentItem : MonoBehaviour
         {
             tileToFind = tileMap.GetTile(tilePosition);
             tileMap.SetTile(tilePosition, null);
+            worldLoader.ChangeBlock(null, 1, tilePosition.x, tilePosition.y);
         }  
 
         foreach (BlockInfos block in blocksInfos)

@@ -684,6 +684,14 @@ PrefabInstance:
       propertyPath: ItemTupe
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2261500942248937277, guid: 732f05154c31b8742a41a06e851b629d, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2261500942248937277, guid: 732f05154c31b8742a41a06e851b629d, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2261500942248937278, guid: 732f05154c31b8742a41a06e851b629d, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -931,6 +939,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5fe824603fa26084499fcaab4a8f93ca, type: 2}
   - {fileID: 11400000, guid: a57ff610fa088f347853758936168b42, type: 2}
   unbreakableBlocks: []
+  worldLoader: {fileID: 1879970720}
   blocksInfos:
   - Tile: {fileID: 11400000, guid: a91a11100a5c2614fa4ddd0d55d186f1, type: 2}
     BlockObject: {fileID: 0}
@@ -4014,6 +4023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1879970717}
   - component: {fileID: 1879970716}
+  - component: {fileID: 1879970720}
   - component: {fileID: 1879970719}
   - component: {fileID: 1879970718}
   m_Layer: 0
@@ -4171,9 +4181,28 @@ MonoBehaviour:
     maxOccurrenceLevel: 0.11
     scaleDecorations: 700
   chunkSize: 10
+  worldLoader: {fileID: 1879970720}
   loadedChunks: []
   islandRadius: 400
   maxHeight: 1
+--- !u!114 &1879970720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879970715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9093ec5abfc88b647a3ad3e6cf5527f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldFile: {fileID: 4900000, guid: 42dbeb606244b4a428abdd06546d810e, type: 3}
+  changedBlocksList:
+    changedBlocksData: []
+  tiles:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 00e91c0a42027c444b636af638db5fb1, type: 2}
 --- !u!1 &1935642687
 GameObject:
   m_ObjectHideFlags: 0
@@ -4309,6 +4338,14 @@ PrefabInstance:
     - target: {fileID: 2261500942248937276, guid: 732f05154c31b8742a41a06e851b629d, type: 3}
       propertyPath: ItemTupe
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2261500942248937277, guid: 732f05154c31b8742a41a06e851b629d, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2261500942248937277, guid: 732f05154c31b8742a41a06e851b629d, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2261500942248937278, guid: 732f05154c31b8742a41a06e851b629d, type: 3}
       propertyPath: m_RootOrder
